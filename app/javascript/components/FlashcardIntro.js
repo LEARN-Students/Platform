@@ -1,29 +1,64 @@
 import React, { Component } from "react"
-import { Button, Card } from "react-bootstrap"
+import { Button, Card, Form, Container, Col, Row } from "react-bootstrap"
 
 class FlashcardIntro extends Component {
     render(){
         return(
-            <div>
+            <Container>
                 <header>
                         <h1>Flashcard Introduction</h1>
                 </header>
-                    <div>
-                        <Card style={{ width: '18rem' }}>
-                          <Card.Body>
-                            <Card.Title>How to:</Card.Title>
-                            <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle>
-                            <Card.Text>
-                              Some quick example text to build on the card title and make up the bulk of
-                              the card's content.
-                            </Card.Text>
-                          </Card.Body>
-                        </Card>
-                    </div>
-                    <div>
-                        <Button variant="success">Begin</Button>
-                    </div>
-            </div>
+                <Row>
+                <Col sm={4}>
+                <Card>
+                  <Card.Header as="h5">Featured</Card.Header>
+                  <Card.Body>
+                    <Card.Text>
+                    <Form>
+                    {['checkbox'].map(type => (
+                        <div key={`default-${type}`} className="mb-3">
+                        <Form.Check
+                        type={type}
+                        id={`default-${type}`}
+                        label={`Javascript`}
+                        />
+                        <Form.Check
+                        type={type}
+                        id={`default-${type}`}
+                        label={`Ruby`}
+                        />
+                        <Form.Check
+                        type={type}
+                        id={`default-${type}`}
+                        label={`React`}
+                        />
+                        <Form.Check
+                        type={type}
+                        id={`default-${type}`}
+                        label={`My List`}
+                        />
+                        </div>
+                    ))}
+                    </Form>
+                    </Card.Text>
+                    <Button variant="primary">Manage My List!</Button>
+                  </Card.Body>
+                </Card>
+                </Col>
+                    <Col sm={8}>
+                    <Card style={{ width: '100%' }}>
+                      <Card.Body>
+                        <Card.Title>How to:</Card.Title>
+                        <Card.Text>
+                          Some quick example text to build on the card title and make up the bulk of
+                          the card's content.
+                        </Card.Text>
+                      </Card.Body>
+                    </Card>
+                    <Button variant="success">Begin</Button>
+                    </Col>
+                    </Row>
+            </Container>
         )
     }
 }
