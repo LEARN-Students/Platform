@@ -5,6 +5,11 @@ import { Home } from './Home'
 
 class App extends React.Component {
   render () {
+    const {
+      logged_in,
+      sign_in_route,
+      sign_out_route
+    } = this.props
 
     return (
       <Router>
@@ -12,6 +17,8 @@ class App extends React.Component {
           <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
               <Nav.Link href="#home">Home</Nav.Link>
               <Nav.Link href="#link">Link</Nav.Link>
+              {logged_in && <Nav.Link href={sign_out_route}>Sign Out</Nav.Link>}
+              {!logged_in && <Nav.Link href={sign_in_route}>Sign In</Nav.Link>}
 
         </Navbar>
         <Switch>
@@ -22,11 +29,3 @@ class App extends React.Component {
 }
 
 export default App
-
-// {logged_in && <Nav.Link href={sign_out_route}>Sign Out</Nav.Link>}
-// {!logged_in && <Nav.Link href={sign_in_route}>Sign In</Nav.Link>}
-// const {
-//   signed_in,
-//   sign_in_route,
-//   sign_out_route
-// } = this.props
