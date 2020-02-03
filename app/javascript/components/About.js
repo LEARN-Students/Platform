@@ -24,8 +24,8 @@ class About extends Component {
                     <h3>Contact:</h3>
                     <h4>Email:</h4>
                     <ul>
-                        <li>ofrey.barsheshetdev@gmail.com</li>
                         <li>mna4642@gmail.com</li>
+                        <li>ofrey.barsheshetdev@gmail.com</li>
                     </ul>
                 </div>
             </div>
