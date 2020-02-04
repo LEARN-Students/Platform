@@ -6,7 +6,6 @@ class User < ApplicationRecord
   def self.find_or_create_from_auth_hash(auth_hash)
       where(provider: auth_hash.provider, uid: auth_hash.uid).first_or_create do |user|
           user.provider = auth_hash.provider
-          user.name = auth_hash.info.name
           user.uid = auth_hash.uid
           user.email = auth_hash.info.email
           user.password = Devise.friendly_token[0,20]
