@@ -1,10 +1,10 @@
 import React, { Component } from "react"
-import { Button, ButtonToolbar } from "react-bootstrap"
+import { Button, ButtonToolbar, Container } from "react-bootstrap"
 
 class About extends Component {
     render(){
         return(
-            <div>
+            <Container>
                 <header>
                         <h1>About us!</h1>
                 </header>
@@ -20,15 +20,7 @@ class About extends Component {
                     <li>Kristen Mulder</li>
                     </ul>
                 </div>
-                <div>
-                    <h3>Contact:</h3>
-                    <h4>Email:</h4>
-                    <ul>
-                        <li>mna4642@gmail.com</li>
-                        <li>ofrey.barsheshetdev@gmail.com</li>
-                    </ul>
-                </div>
-            </div>
+            </Container>
         )
     }
 }

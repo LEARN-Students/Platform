@@ -1,17 +1,19 @@
 import React, { Component } from "react"
 import { Button, Card, Form, Container, Col, Row } from "react-bootstrap"
+import { NavLink as Link } from "react-router-dom"
+
 
 class FlashcardIntro extends Component {
     render(){
         return(
             <Container>
                 <header>
-                        <h1>Flashcard Introduction</h1>
+                        <h1>Flashcard Management</h1>
                 </header>
                 <Row>
                 <Col sm={4}>
                 <Card>
-                  <Card.Header as="h5">Featured</Card.Header>
+                  <Card.Header as="h5">Subjects</Card.Header>
                   <Card.Body>
                     <Card.Text>
                     <Form>
@@ -41,7 +43,9 @@ class FlashcardIntro extends Component {
                     ))}
                     </Form>
                     </Card.Text>
-                    <Button variant="primary">Manage My List!</Button>
+                    <Link to="/flashcards/manage">
+                      <Button variant = "primary"> Manage My List! </Button>   
+                    </Link>
                   </Card.Body>
                 </Card>
                 </Col>
@@ -55,7 +59,7 @@ class FlashcardIntro extends Component {
                         </Card.Text>
                       </Card.Body>
                     </Card>
-                    <Button variant="success">Begin</Button>
+                        <Button variant="success">Begin</Button>
                     </Col>
                     </Row>
             </Container>
