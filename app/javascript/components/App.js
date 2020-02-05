@@ -1,17 +1,26 @@
 import React from "react"
 import { Navbar, Nav } from "react-bootstrap"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
+//pages
 import Home from "./Home"
 import About from "./About"
 import Flashcard from "./Flashcard"
 import FlashcardManage from "./FlashcardManage"
 
 class App extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+
+        }
+
+    }
   render () {
     const {
       logged_in,
       sign_in_route,
-      sign_out_route
+      sign_out_route,
+      current_user
     } = this.props
 
     return (

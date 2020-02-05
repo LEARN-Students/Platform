@@ -2,7 +2,36 @@ import React, { Component } from "react"
 import { Button, Card, Form, Container, Col, Row } from "react-bootstrap"
 import { NavLink as Link } from "react-router-dom"
 
+
 class Flashcard extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            flashcardSide: "front",
+            activeFlashcard: [],
+            flashcards: [{
+                        front:"Boolean",
+                        back:"words",
+                        source:"more words URL",
+                        subject:"My List",
+                        user_id:"3456"},
+                        {front:"Function",
+                        back:"Function",
+                        source:"2more words URL",
+                        subject:"My List",
+                        user_id:"20000"},
+                        {front:"Turnary",
+                        back:"2words",
+                        source:"2more words URL",
+                        subject:"My List",
+                        user_id:"20000"},
+                        {front:"Operations",
+                        back:"2words",
+                        source:"2more words URL",
+                        subject:"My List",
+                        user_id:"20000"}]
+        }
+    }
     render(){
         return(
             <Container>
@@ -43,7 +72,7 @@ class Flashcard extends Component {
                     </Form>
                     </Card.Text>
                     <Link to="/flashcards/manage">
-                      <Button variant = "primary"> Manage My List! </Button>   
+                      <Button variant = "primary"> Manage My List! </Button>
                     </Link>
                   </Card.Body>
                 </Card>
