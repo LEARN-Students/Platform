@@ -94,5 +94,5 @@ class Flashcard extends Component {
         )
     }
 }
-
+{/* comment */}
 export default Flashcard
