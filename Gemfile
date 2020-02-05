@@ -50,11 +50,10 @@ gem "react-rails", "~> 2.6"
 gem "bootstrap", "~> 4.4"
 
 gem "devise", "~> 4.7"
-<<<<<<< HEAD
+
 
 gem "omniauth", "~> 1.9"
 
 gem "omniauth-github", "~> 1.3"
-=======
+
 gem 'rspec-rails', groups: [:development, :test]
->>>>>>> 69db335a5d66fff1980eb6c66e446661dc3c03c6

@@ -1,17 +1,26 @@
 import React from "react"
 import { Navbar, Nav } from "react-bootstrap"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
+//pages
 import Home from "./Home"
 import About from "./About"
-import FlashcardIntro from "./FlashcardIntro"
+import Flashcard from "./Flashcard"
 import FlashcardManage from "./FlashcardManage"
 
 class App extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+
+        }
+
+    }
   render () {
     const {
       logged_in,
       sign_in_route,
-      sign_out_route
+      sign_out_route,
+      current_user
     } = this.props
 
     return (
@@ -26,11 +35,8 @@ class App extends React.Component {
               {!logged_in &&<Nav.Link href = "/users/sign_up" > Sign Up </Nav.Link>}
         </Navbar>
         <Switch>
-            <Route exact path="/"
-              render={props => (
-                <Home {...props}/>
-              )}/>
-            <Route exact path="/flashcards" component={ FlashcardIntro } />
+            <Route exact path="/" render={props => (<Home {...props}/>)}/>
+            <Route exact path="/flashcards" component={ Flashcard } />
             <Route exact path="/flashcards/manage" component={ FlashcardManage } />
             <Route exact path="/about" component={ About } />
         </Switch>
