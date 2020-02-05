@@ -1,9 +1,41 @@
 import React, { Component } from "react"
 import { Button, Card, Form, Container, Col, Row, Image } from "react-bootstrap"
 
+
 class FlashcardManage extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            activeFlashcard: [],
+            flashcards: [{
+                        front:"Boolean",
+                        back:"words",
+                        source:"more words URL",
+                        subject:"My List",
+                        user_id:"3456"},
+                        {front:"Function",
+                        back:"Function",
+                        source:"2more words URL",
+                        subject:"My List",
+                        user_id:"20000"},
+                        {front:"Turnary",
+                        back:"2words",
+                        source:"2more words URL",
+                        subject:"My List",
+                        user_id:"20000"},
+                        {front:"Operations",
+                        back:"2words",
+                        source:"2more words URL",
+                        subject:"My List",
+                        user_id:"20000"}]
+        }
+        console.log(this.state);
+        console.log(this.state.activeFlashcard);
+        console.log(this.state.activeFlashcard == false);
+    }
     render(){
       const style = {"align-content": "flex-end"}
+      const { activeFlashcard, flashcards } = this.state
         return(
             <Container>
                 <header>
@@ -16,34 +48,46 @@ class FlashcardManage extends Component {
                   <Card.Body>
                     <Card.Text>
                     <Form>
-                      <Form.Check label={`Filler`}/>
-                      <Form.Check label={`Filler`}/>
-                      <Form.Check label={`Filler`}/>
-                      <Form.Check label={`Filler`}/>
+                    {flashcards.map(flashcard => {
+                        return(<Form.Group as={Row} key={flashcard.front}>
+                            <Form.Label>{flashcard.front}</Form.Label></Form.Group>
+                    )})}
                     </Form>
                     </Card.Text>
-                    <Button variant="primary">Manage My List!</Button>
+                    <Button variant="primary">Add Flashcard</Button>
                   </Card.Body>
                 </Card>
                 </Col>
                     <Col sm={8}>
                     <Card style={{ width: '100%' }}>
                       <Card.Body>
-                        <Card.Title>Frontside</Card.Title>
+                      {activeFlashcard && <Card.Title>Flashcard Selected Front Side</Card.Title>}
+                      {activeFlashcard &&
                         <Card.Text>
-                          Some quick example text to build on the card title and make up the bulk of
-                          the card's content.
-                        </Card.Text>
+                          {flashcards[0].front}
+                        </Card.Text>}
+                        {!activeFlashcard && <Card.Title>No Flashcard Selected Front</Card.Title>}
+                        {!activeFlashcard &&
+                          <Card.Text>
+                            Some quick example text to build on the card title and make up the bulk of
+                            the card's content.
+                          </Card.Text>}
                       </Card.Body>
                     </Card>
                     <Card style={{ width: '100%', marginTop: '30px' }}>
-                      <Card.Body>
-                        <Card.Title>Backside</Card.Title>
+                    <Card.Body>
+                    {activeFlashcard && <Card.Title>Flashcard Selected Back Side</Card.Title>}
+                    {activeFlashcard &&
+                      <Card.Text>
+                        {flashcards[0].back}
+                      </Card.Text>}
+                      {!activeFlashcard && <Card.Title>No Flashcard Selected Black</Card.Title>}
+                      {!activeFlashcard &&
                         <Card.Text>
                           Some quick example text to build on the card title and make up the bulk of
                           the card's content.
-                        </Card.Text>
-                      </Card.Body>
+                        </Card.Text>}
+                    </Card.Body>
                     </Card>
                     <Button variant="success" style={{ marginTop: '30px' }}>Confirm Edits</Button>
                     </Col>
@@ -54,17 +98,3 @@ class FlashcardManage extends Component {
 }
 
 export default FlashcardManage
-
-
-// {['checkbox'].map(type => (
-//                       <Row>
-//                         <div style ={style} key={`default-${type}`} className="mb-3">
-//                           <Form.Check
-//                           type={type}
-//                           id={`default-${type}`}
-//                           label={`Filler`}
-//                           />
-//                           <Image src="../assets/cog24.png"/>
-//                           </div>
-//                       </Row>
-//                       ))}
