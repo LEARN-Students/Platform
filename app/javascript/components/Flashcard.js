@@ -2,8 +2,7 @@ import React, { Component } from "react"
 import { Button, Card, Form, Container, Col, Row } from "react-bootstrap"
 import { NavLink as Link } from "react-router-dom"
 
-
-class FlashcardIntro extends Component {
+class Flashcard extends Component {
     render(){
         return(
             <Container>
@@ -67,4 +66,4 @@ class FlashcardIntro extends Component {
     }
 }
 
-export default FlashcardIntro
+export default Flashcard

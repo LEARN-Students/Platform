@@ -3,7 +3,7 @@ import { Navbar, Nav } from "react-bootstrap"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import Home from "./Home"
 import About from "./About"
-import FlashcardIntro from "./FlashcardIntro"
+import Flashcard from "./Flashcard"
 import FlashcardManage from "./FlashcardManage"
 
 class App extends React.Component {
@@ -16,7 +16,7 @@ class App extends React.Component {
 
     return (
       <Router>
-        <Navbar bg="light" expand="lg">
+        <Navbar style={{ marginBottom: "4em" }} bg="light" expand="lg" >
           <Navbar.Brand href="/">LOGO</Navbar.Brand>
               <Nav.Link href="/">Home</Nav.Link>
               <Nav.Link href="/flashcards">Flashcards</Nav.Link>
@@ -26,11 +26,8 @@ class App extends React.Component {
               {!logged_in &&<Nav.Link href = "/users/sign_up" > Sign Up </Nav.Link>}
         </Navbar>
         <Switch>
-            <Route exact path="/"
-              render={props => (
-                <Home {...props}/>
-              )}/>
-            <Route exact path="/flashcards" component={ FlashcardIntro } />
+            <Route exact path="/" render={props => (<Home {...props}/>)}/>
+            <Route exact path="/flashcards" component={ Flashcard } />
             <Route exact path="/flashcards/manage" component={ FlashcardManage } />
             <Route exact path="/about" component={ About } />
         </Switch>

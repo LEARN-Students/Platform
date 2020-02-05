@@ -7,7 +7,7 @@ class FlashcardManage extends Component {
         return(
             <Container>
                 <header>
-                        <h1>Flashcard Introduction</h1>
+                        <h1>Flashcard Management</h1>
                 </header>
                 <Row>
                 <Col sm={4}>
@@ -22,7 +22,7 @@ class FlashcardManage extends Component {
                       <Form.Check label={`Filler`}/>
                     </Form>
                     </Card.Text>
-                    <Button variant="primary">Manage My List!</Button>
+                    <Button variant="primary">Add Flashcard</Button>
                   </Card.Body>
                 </Card>
                 </Col>

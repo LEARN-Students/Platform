@@ -12,7 +12,7 @@ class Home extends Component {
         } = this.props
         return(
             <Container >
-                <Row style={{alignItems:"center"}}>
+                <Row>
                     <Col xs={8}>
                         <header>
                             <h1>Hello!</h1>
@@ -29,7 +29,7 @@ class Home extends Component {
                         <Media>
                         <img
                         src="../assets/learn-block-web.jpg"
-                        alt="Generic placeholder"
+                        alt="Learn Academy Logo"
                         />
                         </Media>
                     </Col>
