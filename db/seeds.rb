@@ -1,7 +1,41 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+User.destroy_all
+Flashcard.destroy_all
+
+User.first_or_create([
+    {email:"talentdivendevelopment@gmail.com", provider:"seed", uid:1, password:"TalentDriven"},
+    {email:"123@gmail.com", provider:"seed", uid:999995, password:"123456"},
+    {email:"234@gmail.com", provider:"seed", uid:999996, password:"123456"},
+    {email:"345@gmail.com", provider:"seed", uid:999997, password:"123456"},
+    {email:"456@gmail.com", provider:"seed", uid:999998, password:"123456"},
+    {email:"567@gmail.com", provider:"seed", uid:999999, password:"123456"},
+])
+
+Flashcard.first_or_create([
+    {front: "map()",
+    back: "Creates a new array with the result of calling a function for each array element",
+    source: "https://www.w3schools.com/jsref/jsref_map.asp",
+    subject: "Javascript Methods",
+    user_id: "1"},
+    {front: "filter()",
+    back: "Creates a new array with every element in an array that pass a test",
+    subject: "Javascript Methods",
+    source: "https://www.w3schools.com/jsref/jsref_filter.asp",
+    user_id: "1"},
+    # Creates Ruby Flashcard list
+    {front: "pop method of an array",
+    back: "Removes the last element from self and returns it, or nil if the array is empty.",
+    source: "https://ruby-doc.org/core-2.4.1/Array.html#method-i-pop",
+    subject: "Ruby Methods",
+    user_id: "1"},
+    {front: "length method of an array",
+    back: "Returns the number of elements in self. May be zero.",
+    source: "https://ruby-doc.org/core-2.4.1/Array.html#method-i-length",
+    subject: "Ruby Methods",
+    user_id: "1"},
+    # Creates myList Flashcard list
+    {front: "Boolean",
+    back: "A JavaScript Boolean represents one of two values: true or false.",
+    source: "https://www.w3schools.com/js/js_booleans.asp",
+    subject: "MyList",
+    user_id: "1"}
+])
