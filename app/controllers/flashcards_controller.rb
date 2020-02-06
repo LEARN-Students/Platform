@@ -5,6 +5,7 @@ class FlashcardsController < ApplicationController
   # GET /flashcards.json
   def index
     @flashcards = Flashcard.all
+    render json: @flashcards
   end
 
   # GET /flashcards/1
