@@ -7,36 +7,109 @@ class Flashcard extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            checked: false,
             flashcardSide: "front",
             activeFlashcard: [],
             flashcards: [{
-                        front:"Boolean",
-                        back:"words",
-                        source:"more words URL",
-                        subject:"My List",
-                        user_id:"3456"},
-                        {front:"Function",
-                        back:"Function",
-                        source:"2more words URL",
-                        subject:"My List",
-                        user_id:"20000"},
-                        {front:"Turnary",
-                        back:"2words",
-                        source:"2more words URL",
-                        subject:"My List",
-                        user_id:"20000"},
-                        {front:"Operations",
-                        back:"2words",
-                        source:"2more words URL",
-                        subject:"My List",
-                        user_id:"20000"}]
+                front:"Boolean",
+                back:"words",
+                source:"more words URL",
+                subject:"My List",
+                user_id:"3456"},
+                {front:"Function",
+                back:"Function",
+                source:"2more words URL",
+                subject:"Ruby",
+                user_id:"20000"},
+                {front:"Turnary",
+                back:"2words",
+                source:"2more words URL",
+                subject:"Javascript",
+                user_id:"20000"},
+                {front:"Operations",
+                back:"2words",
+                source:"2more words URL",
+                subject:"JavaScript",
+                user_id:"20000"}],
+            javascript: false,
+            javascriptFC:[{
+                front:"Boolean",
+                back:"words",
+                source:"more words URL",
+                subject:"My List",
+                user_id:"3456"},
+                {front:"Function",
+                back:"Function",
+                source:"2more words URL",
+                subject:"My List",
+                user_id:"20000"},
+                {front:"Turnary",
+                back:"2words",
+                source:"2more words URL",
+                subject:"My List",
+                user_id:"20000"},
+                {front:"Operations",
+                back:"2words",
+                source:"2more words URL",
+                subject:"My List",
+                user_id:"20000"}],
+            ruby: false,
+            rubyFC:[{
+                front:"Integer",
+                back:"words",
+                source:"more words URL",
+                subject:"My List",
+                user_id:"3451"},
+                {front:"String",
+                back:"word",
+                source:"2more words URL",
+                subject:"My List",
+                user_id:"20010"},
+                {front:"Method",
+                back:"2words",
+                source:"2more words URL",
+                subject:"My List",
+                user_id:"20100"},
+                {front:"Props",
+                back:"2words",
+                source:"2more words URL",
+                subject:"My List",
+                user_id:"21000"}],
+            activeList: []
         }
     }
+
+    flashcardChecker = () => {
+        const { javascript, javascriptFC, ruby, rubyFC, activeList } = this.state
+        array = []
+        if(javascript){
+            javascriptFC.map(flashcard =>{
+                array.push(flashcard)
+            })
+        }
+        this.setState({activeList: array})
+    }
+
+    // flashcardChecker2 = () => {
+    //     const {subject} = this.state.flashcards
+    //     array = []
+    //     this.state.flashcards.map(flashcard => {
+    //         if (subject === this.handleCheck()) {
+    //             array.push(flashcard)
+    //         }
+    //     })
+    // }
+    //
+    // handleCheck = () => {
+    //     let { checked, flashcards } = this.state
+    //     this.setState({checked: true})
+    // }
+
     render(){
         return(
             <Container>
                 <header>
-                        <h1>Flashcard Management</h1>
+                        <h1>Flashcard Introduction</h1>
                 </header>
                 <Row>
                 <Col sm={4}>
