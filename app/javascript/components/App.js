@@ -25,7 +25,7 @@ class App extends React.Component {
 
     return (
       <Router>
-        <Navbar bg="light" expand="lg">
+        <Navbar style={{ marginBottom: "4em" }} bg="light" expand="lg" >
           <Navbar.Brand href="/">LOGO</Navbar.Brand>
               <Nav.Link href="/">Home</Nav.Link>
               <Nav.Link href="/flashcards">Flashcards</Nav.Link>

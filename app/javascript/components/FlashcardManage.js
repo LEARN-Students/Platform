@@ -33,13 +33,24 @@ class FlashcardManage extends Component {
         console.log(this.state.activeFlashcard);
         console.log(this.state.activeFlashcard == false);
     }
+
+    edit = (flashcard) => {
+        console.log(flashcard);
+        this.setState({activeFlashcard: [flashcard]})
+        console.log(this.state.activeFlashcard);
+    }
+
+    delete = (flashcard) => {
+        console.log("delete");
+    }
+
     render(){
       const style = {"align-content": "flex-end"}
       const { activeFlashcard, flashcards } = this.state
         return(
             <Container>
                 <header>
-                        <h1>Flashcard Introduction</h1>
+                        <h1>Flashcard Management</h1>
                 </header>
                 <Row>
                 <Col sm={4}>
@@ -49,8 +60,14 @@ class FlashcardManage extends Component {
                     <Card.Text>
                     <Form>
                     {flashcards.map(flashcard => {
-                        return(<Form.Group as={Row} key={flashcard.front}>
-                            <Form.Label>{flashcard.front}</Form.Label></Form.Group>
+                        return(
+                            <Form.Group as={Row} key={flashcard.front} style={{}}>
+                            <Col><Form.Label>{flashcard.front}</Form.Label></Col>
+                            <Col style={{display:"flex", justifyContent:"flex-end"}}>
+                            <Image src="../assets/cog32.png" style={{height:"1rem", marginRight:".4rem"}} onClick={() => this.edit(flashcard)}/>
+                            <Image src="../assets/trash32.png" style={{height:"1rem"}} onClick={() => this.delete(flashcard)}/>
+                            </Col>
+                            </Form.Group>
                     )})}
                     </Form>
                     </Card.Text>
