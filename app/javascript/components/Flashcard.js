@@ -58,6 +58,7 @@ class Flashcard extends Component {
         // But because the sorting function is not meant to be used this way, not all permutations have the same probability.
         array.sort(() => Math.random() - 0.5)
         this.setState({flashcards: array})
+        console.log(this.state.flashcards);
         console.log(this.state.flashcards[0]);
     }
 
@@ -90,18 +91,24 @@ class Flashcard extends Component {
     }
 
     gotIt = () => {
-        console.log("gotIt");
+        const { flashcards } = this.state
+        this.setState({flashcards: flashcards.slice(1)})
     }
 
     keepStudying = () => {
-        console.log("keepStudying");
+        const { flashcards } = this.state
+        var array = flashcards
+        var curFC = array.shift()
+        array = array.concat(curFC);
+        this.setState({flashcards: array})
     }
+
     render(){
         const { flashcards, javascript, ruby, myList } = this.state
         return(
             <Container>
                 <header>
-                    <h1>Flashcard Introduction</h1>
+                    <h1 style={{ marginBottom:"4rem" }}>Flashcards</h1>
                 </header>
                 <Row>
                     <Col sm={4}>
@@ -146,15 +153,17 @@ class Flashcard extends Component {
                         {flashcards.length > 0 && <Card.Text>
                          {flashcards[0].back}
                         </Card.Text>}
-                        {flashcards.length > 0 && <Card.Text>
+                        {flashcards.length > 0 && <Card.Text style={{display:"flex", justifyContent:"flex-end"}}>
                          {flashcards[0].subject}
                         </Card.Text>}
                       </Card.Body>
                     </Card>
-                        {flashcards.length == 0 && <Button variant="primary" onClick={() => {this.flashcardAggregator()}}>Begin</Button>}
-                        {flashcards.length > 0 && <Button variant="warning" onClick={() => {this.keepStudying()}}>Keep Studying</Button>}
-                        {flashcards.length > 0 && <Button variant="primary" onClick={() => {this.flashcardAggregator()}}>Begin</Button>}
-                        {flashcards.length > 0 && <Button variant="success" onClick={() => {this.gotIt()}}>Got It!</Button>}
+                        <Row style={{ justifyContent:"space-between", padding: "1.25rem"}}>
+                            {flashcards.length == 0 && <Button variant="primary" onClick={() => {this.flashcardAggregator()}}>Begin</Button>}
+                            {flashcards.length > 0 && <Button variant="warning" onClick={() => {this.keepStudying()}}>Keep Studying</Button>}
+                            {flashcards.length > 0 && <Button variant="primary" onClick={() => {this.flashcardAggregator()}}>Begin</Button>}
+                            {flashcards.length > 0 && <Button variant="success" onClick={() => {this.gotIt()}}>Got It!</Button>}
+                        </Row>
                     </Col>
                 </Row>
             </Container>

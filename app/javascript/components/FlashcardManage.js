@@ -7,7 +7,7 @@ class FlashcardManage extends Component {
         super(props);
         this.state = {
             activeFlashcard: [],
-            flashcards: [{
+            myList: [{
                         front:"Boolean",
                         back:"words",
                         source:"more words URL",
@@ -46,17 +46,38 @@ class FlashcardManage extends Component {
 
     render(){
       const style = {"align-content": "flex-end"}
-      const { activeFlashcard, flashcards } = this.state
+      const { activeFlashcard, myList } = this.state
         return(
-            <div>
-                <Container>
-                    <header>
-                            <h1>Flashcard Management</h1>
-                    </header>
-                    <Row>
-                    <Col sm={4}>
-                    <Card>
-                      <Card.Header as="h5">My List</Card.Header>
+            <Container>
+                <header>
+                        <h1 style={{ marginBottom:"4rem" }}>Flashcard Management</h1>
+                </header>
+                <Row>
+                <Col sm={4}>
+                <Card>
+                  <Card.Header as="h5">My List</Card.Header>
+                  <Card.Body>
+                    <Card.Text>
+                    <Form>
+                    {myList.map(flashcard => {
+                        return(
+                            <Form.Group as={Row} key={flashcard.front} style={{}}>
+                            <Col><Form.Label>{flashcard.front}</Form.Label></Col>
+                            <Col style={{display:"flex", justifyContent:"flex-end"}}>
+                            <Image src="../assets/cog32.png" style={{height:"1rem", marginRight:".4rem"}} onClick={() => this.edit(flashcard)}/>
+                            <Image src="../assets/trash32.png" style={{height:"1rem"}} onClick={() => this.delete(flashcard)}/>
+                            </Col>
+                            </Form.Group>
+                    )})}
+                    </Form>
+                    </Card.Text>
+                    <Button variant="primary">Add Flashcard</Button>
+                  </Card.Body>
+                </Card>
+                <Button variant="primary" style={{ margin: "1.25rem"}} href="/flashcards">Back</Button>
+                </Col>
+                    <Col sm={8}>
+                    <Card style={{ width: '100%' }}>
                       <Card.Body>
                         <Card.Text>
                         <Form>
