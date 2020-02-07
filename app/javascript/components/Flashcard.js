@@ -119,16 +119,19 @@ class Flashcard extends Component {
                             <Card.Text>
                             <Form>
                                 <Form.Check
+                                style={{ marginBottom:".5rem" }}
                                 type="checkbox"
                                 label="Javascript"
                                 onClick={() => {this.setState({javascript: !javascript})}}
                                 />
                                 <Form.Check
+                                style={{ marginBottom:".5rem" }}
                                 type="checkbox"
                                 label="Ruby"
                                 onClick={() => {this.setState({ruby: !ruby})}}
                                 />
                                 <Form.Check
+                                style={{ marginBottom:".5rem" }}
                                 type="checkbox"
                                 label="myList"
                                 onClick={() => {this.setState({myList: !myList})}}
