@@ -38,7 +38,6 @@ class Flashcard extends Component {
         }
     }
 
-<<<<<<< HEAD
     componentDidMount = () => {
     // function will need to fetch data from our JSON API
     // we should seperate the data by subject so we can xport just what me need
