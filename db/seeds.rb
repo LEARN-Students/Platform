@@ -11,6 +11,7 @@ User.first_or_create([
 ])
 
 Flashcard.first_or_create([
+    # Creates Javascript Methods Flashcard list
     {front: "map()",
     back: "Creates a new array with the result of calling a function for each array element",
     source: "https://www.w3schools.com/jsref/jsref_map.asp",
@@ -21,7 +22,7 @@ Flashcard.first_or_create([
     subject: "Javascript Methods",
     source: "https://www.w3schools.com/jsref/jsref_filter.asp",
     user_id: "1"},
-    # Creates Ruby Flashcard list
+    # Creates Ruby Methods Flashcard list
     {front: "pop method of an array",
     back: "Removes the last element from self and returns it, or nil if the array is empty.",
     source: "https://ruby-doc.org/core-2.4.1/Array.html#method-i-pop",

@@ -12,6 +12,7 @@ class Flashcard extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            subjects: [],
             flashcards: [],
             // true boolean represents front, false boolean represents back
             flashcardSide: true,
@@ -25,33 +26,63 @@ class Flashcard extends Component {
         }
     }
 
-    componentDidMount = () => {
+//     componentDidMount = () => {
+// // function will need to fetch data from our JSON API
+// // we should seperate the data by subject so we can xport just what me need
+//         fetch("http://localhost:3000/flashcards")
+//             .then((response) => {
+//                 console.log(response)
+//                 console.log(response.status)
+//                 if(response.status == 200) {
+//                     return(response.json())
+//                 }
+//             })
+//             .then((flashcardsArray) => {
+//                 let unique = [...new Set(flashcardsArray.map(item => item.subject))];
+//                 let jsMethods = flashcardsArray.filter(flashcard => {
+//                     return flashcard.subject === "Javascript Methods"
+//                 })
+//                 this.setState({javascriptFC: jsMethods})
+//                 let rubyMethods = flashcardsArray.filter(flashcard => {
+//                     return flashcard.subject === "Ruby Methods"
+//                 })
+//                 this.setState({rubyFC: rubyMethods})
+//             })
+//             .catch((error)=>{
+//                 this.setState({ error: `Sorry, there was a problem.  ${error.message}`})
+//             })
+//     }
+
+
+componentDidMount = () => {
 // function will need to fetch data from our JSON API
 // we should seperate the data by subject so we can xport just what me need
-// the reason we will abstract out this function into its own file is that it is needed in two different components ( Flashcards & FlashcardManage)
-        fetch("http://localhost:3000/flashcards")
-            .then((response) => {
-                console.log(response)
-                console.log(response.status)
-                if(response.status == 200) {
-                    return(response.json())
-                }
-            })
-            .then((flashcardsArray) => {
-                var jsMethods = flashcardsArray.filter(flashcard => {
-                    return flashcard.subject === "Javascript Methods"
+    fetch("http://localhost:3000/flashcards")
+        .then((response) => {
+            console.log(response)
+            console.log(response.status)
+            if(response.status == 200) {
+                return(response.json())
+            }
+        })
+        .then((flashcardsArray) => {
+            let subjects = [...new Set(flashcardsArray.map(item => item.subject))];
+            console.log(subjects);
+            this.setState({subjects:subjects})
+            subjects.forEach((subject, i) => {
+                var objArr = flashcardsArray.filter(flashcard => {
+                    return flashcard.subject === subject
                 })
-                this.setState({javascriptFC: jsMethods})
+                console.log(objArr);
+                var subject = objArr
+                console.log();
+})
+        })
+        .catch((error)=>{
+            this.setState({ error: `Sorry, there was a problem.  ${error.message}`})
+        })
+}
 
-                var rubyMethods = flashcardsArray.filter(flashcard => {
-                    return flashcard.subject === "Ruby Methods"
-                })
-                this.setState({rubyFC: rubyMethods})
-            })
-            .catch((error)=>{
-                this.setState({ error: `Sorry, there was a problem.  ${error.message}`})
-            })
-    }
 
     shuffle = (array) => {
         // Simple solution to creating a random-like array

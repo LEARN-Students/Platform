@@ -80,7 +80,7 @@ class FlashcardManage extends Component {
                     <Card style={{ width: '100%' }}>
                       <Card.Body>
                       {activeFlashcard && <Card.Title>Flashcard Selected Front Side</Card.Title>}
-                      {activeFlara&
+                      {activeFlashcard&
                         <Card.Text>
                           {myList[0].front}
                         </Card.Text>}
