@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { Button, Card, Form, Container, Col, Row } from "react-bootstrap"
-import { NavLink as Link } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 
 // from getData we will get all the flashcards seperated by Subject
@@ -57,6 +57,7 @@ class Flashcard extends Component {
 componentDidMount = () => {
 // function will need to fetch data from our JSON API
 // we should seperate the data by subject so we can xport just what me need
+
     fetch("http://localhost:3000/flashcards")
         .then((response) => {
             console.log(response)
@@ -82,8 +83,6 @@ componentDidMount = () => {
             this.setState({ error: `Sorry, there was a problem.  ${error.message}`})
         })
 }
-
-
     shuffle = (array) => {
         // Simple solution to creating a random-like array
         // That somewhat works, because Math.random() - 0.5 is a random number that may be positive or negative, so the sorting function reorders elements randomly.
