@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { Button, Card, Form, Container, Col, Row } from "react-bootstrap"
-import { NavLink as Link } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 
 // from getData we will get all the flashcards seperated by Subject
@@ -38,6 +38,7 @@ class Flashcard extends Component {
         }
     }
 
+<<<<<<< HEAD
     componentDidMount = () => {
     // function will need to fetch data from our JSON API
     // we should seperate the data by subject so we can xport just what me need
