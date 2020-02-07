@@ -79,6 +79,9 @@ class FlashcardManage extends Component {
                     <Col sm={8}>
                     <Card style={{ width: '100%' }}>
                       <Card.Body>
+
+                      {activeFlashcard && <Card.Title>Flashcard Selected Front Side</Card.Title>}
+                      {activeFlashcard&
                         <Card.Text>
                         <Form>
                         {flashcards.map(flashcard => {
