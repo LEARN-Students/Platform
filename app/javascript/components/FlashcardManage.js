@@ -7,7 +7,7 @@ class FlashcardManage extends Component {
         super(props);
         this.state = {
             activeFlashcard: [],
-            flashcards: [{
+            myList: [{
                         front:"Boolean",
                         back:"words",
                         source:"more words URL",
@@ -46,11 +46,11 @@ class FlashcardManage extends Component {
 
     render(){
       const style = {"align-content": "flex-end"}
-      const { activeFlashcard, flashcards } = this.state
+      const { activeFlashcard, myList } = this.state
         return(
             <Container>
                 <header>
-                        <h1>Flashcard Management</h1>
+                        <h1 style={{ marginBottom:"4rem" }}>Flashcard Management</h1>
                 </header>
                 <Row>
                 <Col sm={4}>
@@ -59,7 +59,7 @@ class FlashcardManage extends Component {
                   <Card.Body>
                     <Card.Text>
                     <Form>
-                    {flashcards.map(flashcard => {
+                    {myList.map(flashcard => {
                         return(
                             <Form.Group as={Row} key={flashcard.front} style={{}}>
                             <Col><Form.Label>{flashcard.front}</Form.Label></Col>
@@ -74,6 +74,7 @@ class FlashcardManage extends Component {
                     <Button variant="primary">Add Flashcard</Button>
                   </Card.Body>
                 </Card>
+                <Button variant="primary" style={{ margin: "1.25rem"}} href="/flashcards">Back</Button>
                 </Col>
                     <Col sm={8}>
                     <Card style={{ width: '100%' }}>
@@ -81,7 +82,7 @@ class FlashcardManage extends Component {
                       {activeFlashcard && <Card.Title>Flashcard Selected Front Side</Card.Title>}
                       {activeFlashcard &&
                         <Card.Text>
-                          {flashcards[0].front}
+                          {myList[0].front}
                         </Card.Text>}
                         {!activeFlashcard && <Card.Title>No Flashcard Selected Front</Card.Title>}
                         {!activeFlashcard &&
@@ -96,7 +97,7 @@ class FlashcardManage extends Component {
                     {activeFlashcard && <Card.Title>Flashcard Selected Back Side</Card.Title>}
                     {activeFlashcard &&
                       <Card.Text>
-                        {flashcards[0].back}
+                        {myList[0].back}
                       </Card.Text>}
                       {!activeFlashcard && <Card.Title>No Flashcard Selected Black</Card.Title>}
                       {!activeFlashcard &&
