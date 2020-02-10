@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Flashcard from '../Flashcard';
-import FlashcardManage from '../FlashcardManage';
+import Flashcard from '../components/Flashcard';
+import FlashcardManage from '../components/FlashcardManage';
 import Enzyme, { mount, shallow, render } from 'enzyme';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import { configure } from 'enzyme';
