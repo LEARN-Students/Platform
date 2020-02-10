@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from '../App';
-import Routes, {About, Home, Flashcard} from '../App';
+import App from '../components/App';
+import Routes, {About, Home, Flashcard} from '../components/App';
 import Enzyme, { mount, shallow, render } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { NavLink } from 'react-router-dom';

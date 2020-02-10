@@ -15,13 +15,13 @@ class App extends React.Component {
         }
 
     }
-  render () {
-    const {
-      logged_in,
-      sign_in_route,
-      sign_out_route,
-      current_user
-    } = this.props
+    render () {
+        const {
+          logged_in,
+          sign_in_route,
+          sign_out_route,
+          current_user
+        } = this.props
 
     return (
       <Router>

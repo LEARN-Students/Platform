@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { Button, Card, Form, Container, Col, Row } from "react-bootstrap"
 import { Link } from "react-router-dom"
+import { getFlashcards } from './apiCalls.js'
 
 
 // from getData we will get all the flashcards seperated by Subject
@@ -12,77 +13,63 @@ class Flashcard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            subjects: [],
+            subjects: ["Javascript (Basics)", "Javascript (Adv.)", "Javascript Methods", "Ruby (Basics)", "Ruby (Adv.)", "Ruby Methods", "React (Basics)", "Rails (Basics)"],
             flashcards: [],
+            error: "",
             // true boolean represents front, false boolean represents back
             flashcardSide: true,
-            javascript: false,
-            javascriptFC:[],
+            js: false,
+            jsFC:[],
+            jsAdv: false,
+            jsAdvFC:[],
+            jsMethods: false,
+            jsMethodsFC:[],
             ruby: false,
             rubyFC:[],
+            rubyAdv: false,
+            rubyAdvFC:[],
+            rubyMethods: false,
+            rubyMethodsFC:[],
+            react:false,
+            reactFC:[],
+            rails:false,
+            railsFC:[],
             myList:false,
             myListFC:[],
-            error: ""
         }
     }
 
-//     componentDidMount = () => {
-// // function will need to fetch data from our JSON API
-// // we should seperate the data by subject so we can xport just what me need
-//         fetch("http://localhost:3000/flashcards")
-//             .then((response) => {
-//                 console.log(response)
-//                 console.log(response.status)
-//                 if(response.status == 200) {
-//                     return(response.json())
-//                 }
-//             })
-//             .then((flashcardsArray) => {
-//                 let unique = [...new Set(flashcardsArray.map(item => item.subject))];
-//                 let jsMethods = flashcardsArray.filter(flashcard => {
-//                     return flashcard.subject === "Javascript Methods"
-//                 })
-//                 this.setState({javascriptFC: jsMethods})
-//                 let rubyMethods = flashcardsArray.filter(flashcard => {
-//                     return flashcard.subject === "Ruby Methods"
-//                 })
-//                 this.setState({rubyFC: rubyMethods})
-//             })
-//             .catch((error)=>{
-//                 this.setState({ error: `Sorry, there was a problem.  ${error.message}`})
-//             })
-//     }
+    componentDidMount = () => {
+    // function will need to fetch data from our JSON API
+    // we should seperate the data by subject so we can xport just what me need
+        getFlashcards()
+            .then((flashcardsArray) => {
+                let subjects = [...new Set(flashcardsArray.map(item => item.subject))];
+                this.setState({subjects:subjects})
+                let js = flashcardsArray.filter(fc => fc.subject === "Javascript (Basics)")
+                this.setState({jsFC: js})
+                let jsAdv = flashcardsArray.filter(fc => fc.subject === "Javascript (Adv.)")
+                this.setState({jsAdvFC: jsAdv})
+                let jsMethods = flashcardsArray.filter(fc => fc.subject === "Javascript Methods")
+                this.setState({jsMethodsFC: jsMethods})
+                let ruby = flashcardsArray.filter(fc => fc.subject === "Ruby (Basics)")
+                this.setState({rubyFC: ruby})
+                let rubyAdv = flashcardsArray.filter(fc => fc.subject === "Ruby (Adv.)")
+                this.setState({rubyAdvFC: rubyAdv})
+                let rubyMethods = flashcardsArray.filter(fc => fc.subject === "Ruby Methods")
+                this.setState({rubyMethodsFC: rubyMethods})
+                let react = flashcardsArray.filter(fc => fc.subject === "React (Basics)")
+                this.setState({reactFC: react})
+                let rails = flashcardsArray.filter(fc => fc.subject === "Rails (Basics)")
+                this.setState({railsFC: rails})
+                let myList = flashcardsArray.filter(fc => fc.subject === "My List")
+                this.setState({myListFC: myList})
+            })
+            .catch((error)=>{
+                this.setState({ error: `Error: ${error.message}`})
+            })
+    }
 
-
-componentDidMount = () => {
-// function will need to fetch data from our JSON API
-// we should seperate the data by subject so we can xport just what me need
-
-    fetch("http://localhost:3000/flashcards")
-        .then((response) => {
-            console.log(response)
-            console.log(response.status)
-            if(response.status == 200) {
-                return(response.json())
-            }
-        })
-        .then((flashcardsArray) => {
-            let subjects = [...new Set(flashcardsArray.map(item => item.subject))];
-            console.log(subjects);
-            this.setState({subjects:subjects})
-            subjects.forEach((subject, i) => {
-                var objArr = flashcardsArray.filter(flashcard => {
-                    return flashcard.subject === subject
-                })
-                console.log(objArr);
-                var subject = objArr
-                console.log();
-})
-        })
-        .catch((error)=>{
-            this.setState({ error: `Sorry, there was a problem.  ${error.message}`})
-        })
-}
     shuffle = (array) => {
         // Simple solution to creating a random-like array
         // That somewhat works, because Math.random() - 0.5 is a random number that may be positive or negative, so the sorting function reorders elements randomly.
@@ -95,10 +82,16 @@ componentDidMount = () => {
 
     flashcardAggregator = () => {
         // Destructuring our variables
-        const { flashcards,
-            javascript, javascriptFC,
+        let { flashcards,
+            js, jsFC,
+            jsAdv, jsAdvFC,
+            jsMethods, jsMethodsFC,
             ruby, rubyFC,
-            mylist, myListFC
+            rubyAdv, rubyAdvFC,
+            rubyMethods, rubyMethodsFC,
+            react, reactFC,
+            rails, railsFC,
+            myList, myListFC
         } = this.state
         // Setting a new array to aggregate the active flashcards
         let aggArray = []
@@ -107,17 +100,15 @@ componentDidMount = () => {
         // Checks if the user has checked the box (boolean true/false)
         // & puts the flashcards from the lists in state into the empty array
         // if the value of javascript stored in state is true
-        if(javascript){
-            // push the FC objects in the javascriptFC array of flashcards into aggArray
-            javascriptFC.map(flashcard =>{
-                aggArray.push(flashcard)
-            })
-        }
-        if(ruby){
-            rubyFC.map(flashcard =>{
-                aggArray.push(flashcard)
-            })
-        }
+        if(js){jsFC.map(flashcard => aggArray.push(flashcard))}
+        if(jsAdv){jsAdvFC.map(flashcard => aggArray.push(flashcard))}
+        if(jsMethods){jsMethodsFC.map(flashcard => aggArray.push(flashcard))}
+        if(ruby){rubyFC.map(flashcard => aggArray.push(flashcard))}
+        if(rubyAdv){rubyAdvFC.map(flashcard => aggArray.push(flashcard))}
+        if(rubyMethods){rubyMethodsFC.map(flashcard => aggArray.push(flashcard))}
+        if(react){reactFC.map(flashcard => aggArray.push(flashcard))}
+        if(rails){railsFC.map(flashcard => aggArray.push(flashcard))}
+        if(myList){myListFC.map(flashcard => aggArray.push(flashcard))}
         this.shuffle(aggArray)
     }
 
@@ -134,8 +125,24 @@ componentDidMount = () => {
         this.setState({flashcards: array})
     }
 
+    // for use when we map through our subjects object to make checkboxes
+    checkbox = (subject) => {
+        console.log(subject);
+    }
+
     render(){
-        const { flashcards, javascript, ruby, myList } = this.state
+        let { flashcards, subjects,
+            error, flashcardSide,
+            js, jsFC,
+            jsAdv, jsAdvFC,
+            jsMethods, jsMethodsFC,
+            ruby, rubyFC,
+            rubyAdv, rubyAdvFC,
+            rubyMethods, rubyMethodsFC,
+            react, reactFC,
+            rails, railsFC,
+            myList, myListFC
+        } = this.state
         return(
             <Container>
                 <header>
@@ -148,23 +155,68 @@ componentDidMount = () => {
                           <Card.Body>
                             <Card.Text>
                             <Form>
+                            {/*}{subjects.map(subject => {
+                                return(
+                                    <Form.Check
+                                    style={{ marginBottom:".5rem" }}
+                                    type="checkbox"
+                                    label={subject}
+                                    onClick={() => {this.checkbox(subject)}}
+                                    />
+                            )})}*/}
                                 <Form.Check
                                 style={{ marginBottom:".5rem" }}
                                 type="checkbox"
-                                label="Javascript"
-                                onClick={() => {this.setState({javascript: !javascript})}}
+                                label="Javascript (Basics)"
+                                onClick={() => {this.setState({js:!js})}}
                                 />
                                 <Form.Check
                                 style={{ marginBottom:".5rem" }}
                                 type="checkbox"
-                                label="Ruby"
-                                onClick={() => {this.setState({ruby: !ruby})}}
+                                label="Javascript (Adv.)"
+                                onClick={() => {this.setState({jsAdv:!jsAdv})}}
                                 />
                                 <Form.Check
                                 style={{ marginBottom:".5rem" }}
                                 type="checkbox"
-                                label="myList"
-                                onClick={() => {this.setState({myList: !myList})}}
+                                label="Javascript Methods"
+                                onClick={() => {this.setState({jsMethods:!jsMethods})}}
+                                />
+                                <Form.Check
+                                style={{ marginBottom:".5rem" }}
+                                type="checkbox"
+                                label="Ruby (Basics)"
+                                onClick={() => {this.setState({ruby:!ruby})}}
+                                />
+                                <Form.Check
+                                style={{ marginBottom:".5rem" }}
+                                type="checkbox"
+                                label="Ruby (Adv.)"
+                                onClick={() => {this.setState({rubyAdv:!rubyAdv})}}
+                                />
+                                <Form.Check
+                                style={{ marginBottom:".5rem" }}
+                                type="checkbox"
+                                label="Ruby Methods"
+                                onClick={() => {this.setState({rubyMethods:!rubyMethods})}}
+                                />
+                                <Form.Check
+                                style={{ marginBottom:".5rem" }}
+                                type="checkbox"
+                                label="React (Basics)"
+                                onClick={() => {this.setState({react:!react})}}
+                                />
+                                <Form.Check
+                                style={{ marginBottom:".5rem" }}
+                                type="checkbox"
+                                label="Rails (Basics)"
+                                onClick={() => {this.setState({rails:!rails})}}
+                                />
+                                <Form.Check
+                                style={{ marginBottom:".5rem" }}
+                                type="checkbox"
+                                label="My List"
+                                onClick={() => {this.setState({myList:!myList})}}
                                 />
                             </Form>
                             </Card.Text>
@@ -195,7 +247,7 @@ componentDidMount = () => {
                         <Row style={{ justifyContent:"space-between", padding: "1.25rem"}}>
                             {flashcards.length == 0 && <Button variant="primary" onClick={() => {this.flashcardAggregator()}}>Begin</Button>}
                             {flashcards.length > 0 && <Button variant="warning" onClick={() => {this.keepStudying()}}>Keep Studying</Button>}
-                            {flashcards.length > 0 && <Button variant="primary" onClick={() => {this.flashcardAggregator()}}>Begin</Button>}
+                            {flashcards.length > 0 && <Button variant="primary" onClick={() => {this.flashcardAggregator()}}>Reset</Button>}
                             {flashcards.length > 0 && <Button variant="success" onClick={() => {this.gotIt()}}>Got It!</Button>}
                         </Row>
                     </Col>
