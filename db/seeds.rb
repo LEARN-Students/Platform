@@ -1,18 +1,31 @@
-User.destroy_all
+
+flashcardCount = Flashcard.count
+
 Flashcard.destroy_all
 
-User.first_or_create([
-    {email:"talentdivendevelopment@gmail.com", provider:"seed", uid:1, password:"TalentDriven"},
+p "Destroyed #{flashcardCount} Flashcards"
+
+p "#{Flashcard.count} Current Flashcards"
+
+User.destroy_all
+
+Flashcard.destroy_all
+
+users =
+    [{email:"talentdivendevelopment@gmail.com", provider:"seed", uid:1, password:"TalentDriven"},
     {email:"123@gmail.com", provider:"seed", uid:999995, password:"123456"},
     {email:"234@gmail.com", provider:"seed", uid:999996, password:"123456"},
     {email:"345@gmail.com", provider:"seed", uid:999997, password:"123456"},
     {email:"456@gmail.com", provider:"seed", uid:999998, password:"123456"},
-    {email:"567@gmail.com", provider:"seed", uid:999999, password:"123456"},
-])
+    {email:"567@gmail.com", provider:"seed", uid:999999, password:"123456"}]
 
-Flashcard.first_or_create([
-    # Creates Javascript Methods Flashcard list
-    {front: "map()",
+users.each do |user|
+    User.create_or_find_by(user)
+end
+
+
+flashcards = [{
+    front: "map()",
     back: "Creates a new array with the result of calling a function for each array element",
     source: "https://www.w3schools.com/jsref/jsref_map.asp",
     subject: "Javascript Methods",
@@ -38,5 +51,27 @@ Flashcard.first_or_create([
     back: "A JavaScript Boolean represents one of two values: true or false.",
     source: "https://www.w3schools.com/js/js_booleans.asp",
     subject: "MyList",
-    user_id: "1"}
-])
+    user_id: "1"},
+    {front: "Boolean",
+    back: "A JavaScript Boolean represents one of two values: true or false.",
+    source: "https://www.w3schools.com/js/js_booleans.asp",
+    subject: "MyList",
+    user_id: "1"},
+    {front: "Boolean",
+    back: "A JavaScript Boolean represents one of two values: true or false.",
+    source: "https://www.w3schools.com/js/js_booleans.asp",
+    subject: "MyList",
+    user_id: "1"},
+    {front: "Boolean",
+    back: "A JavaScript Boolean represents one of two values: true or false.",
+    source: "https://www.w3schools.com/js/js_booleans.asp",
+    subject: "MyList",
+    user_id: "1"}]
+
+
+flashcards.each do |flashcard|
+    pp flashcard
+    Flashcard.create_or_find_by(flashcard)
+end
+
+p "Created #{Flashcard.count} Flashcards"
