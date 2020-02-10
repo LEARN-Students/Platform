@@ -81,6 +81,7 @@ class FlashcardManage extends Component {
 export default FlashcardManage
 
 
+
 // <Card style={{ width: '100%', marginTop: '30px' }}>
 // <Card.Body>
 // {activeFlashcard && <Card.Title>Flashcard Selected Back Side</Card.Title>}
