@@ -20,6 +20,7 @@ class FlashcardManage extends Component {
     delete = (flashcard) => {
         console.log("delete");
     }
+    
 
     render(){
       const style = {"align-content": "flex-end"}
