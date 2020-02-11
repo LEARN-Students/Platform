@@ -19,7 +19,7 @@ class FlashcardManage extends Component {
         }
     }
 
-    componentDidMount = () => {
+    getMyList = () => {
         this.setState({activeFlashcard: this.state.myList[0]})
         fetch("http://localhost:3000/flashcards")
             .then(response => {
@@ -33,6 +33,10 @@ class FlashcardManage extends Component {
                 this.setState({myList: myList})
             })
             .catch(error => this.setState({errors: error}))
+    }
+
+    componentDidMount = () => {
+        this.getMyList()
     }
 
     addFlashcard = () => {
@@ -77,7 +81,7 @@ class FlashcardManage extends Component {
             method: "DELETE"  // <- Here's our verb, so the correct endpoint is invoked on the server
           })
           .then((response) => {
-              window.location.href = "http://localhost:3000/flashcards/manage";
+              this.getMyList()
           })
           .catch(error => {
             console.log(error)
