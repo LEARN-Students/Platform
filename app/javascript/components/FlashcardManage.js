@@ -1,31 +1,34 @@
 import React, { Component } from "react"
+<<<<<<< HEAD
 import { Button, Card, Form, Container, Col, Row, Image, OverlayTrigger, Popover } from "react-bootstrap"
+=======
+import { Button, Card, Form, Container, Col, Row, Image } from "react-bootstrap"
+import { getMyFlashcards, postFlashcards, deleteFlashcards, editFlashcards } from './apiCalls.js'
+>>>>>>> 7883f19a603d2d38a9b19eec576b7f400f290978
 
 
 class FlashcardManage extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            success: false,
             myList: [{front:"Manage Your Flashcards", back:"To add new flashcards please click Add Flashcard on the left-hand panel", subject:"myList"}],
             activeFlashcard: false,
             user_id: false,
             errors: false,
             form: {
-                front: '',
-                back: '',
-                source: '',
-                subject: ''
+                front: 'Front',
+                back: 'Back',
+                source: 'Source URL',
+                subject: 'MyList',
+                user_id: 1
             }
         }
     }
 
     getMyList = () => {
         this.setState({activeFlashcard: this.state.myList[0]})
-        fetch("http://localhost:3000/flashcards")
-            .then(response => {
-                if (response.ok) {return response.json()}
-                else {throw new Error('Something went wrong ...')}
-            })
+        getMyFlashcards()
             .then(flashcards => {
                 return flashcards.filter(flashcard => flashcard.subject === "MyList")
             })
@@ -47,45 +50,65 @@ class FlashcardManage extends Component {
         this.editFlashcard(myList[myList.length-1])
     }
 
+    setForm = (flashcard) => {
+        const{form} = this.state
+        const{myList} = this.state.myList
+        this.setState({form: flashcard})
+        console.log(flashcard);
+    }
+
+    handleEdit = () => {
+        console.log("handleEdit");
+        this.editFlashcard(this.state.form)
+        .then(() => {
+            this.setState({success: true})
+        })
+        console.log(this.state.form);
+    }
+
     editFlashcard = (flashcard) => {
         console.log("edit");
-        this.setState({activeFlashcard:flashcard})
+        editFlashcards(flashcard)
+        .then((response) => {
+            if(response.ok){
+                return this.getMyList()
+            }
+        })
+        .catch(error => {
+          this.setState({errors: error})})
+    }
+
+    handleSubmit = () => {
+        console.log("handleSubmit");
+        console.log(this.state.form);
+        this.postFlashcard(this.state.form)
+        .then(() => {
+            this.setState({success:true})
+        })
     }
 
     postFlashcard = (flashcard) => {
         console.log("post");
-        this.setState({activeFlashcard:flashcard})
-        return fetch('http://localhost:3000/flashcards', {
-            body: JSON.stringify(flashcard),  // <- we need to stringify the json for fetch
-            headers: {  // <- We specify that we're sending JSON, and expect JSON back
-              'Content-Type': 'application/json'
-            },
-            method: "POST"  // <- Here's our verb, so the correct endpoint is invoked on the server
-          })
-          // .then((response) => {
-          //     window.location.href = "http://localhost:3000/flashcards/manage";
-          // })
-          .catch(error => {
-            console.log(error)
-            this.setState({errors: error})})
+        postFlashcards(flashcard)
+        .then((response) => {
+            console.log(response);
+            if(response.ok){
+                return this.getMyList()
+            }
+        })
+        .catch(error => {
+          this.setState({errors: error})})
     }
 
     deleteFlashcard = (flashcard) => {
         console.log("delete");
         console.log(flashcard);
-        return fetch('http://localhost:3000/flashcards/' + flashcard.id, {
-            body: JSON.stringify(flashcard),  // <- we need to stringify the json for fetch
-            headers: {  // <- We specify that we're sending JSON, and expect JSON back
-              'Content-Type': 'application/json'
-            },
-            method: "DELETE"  // <- Here's our verb, so the correct endpoint is invoked on the server
-          })
-          .then((response) => {
-              this.getMyList()
-          })
-          .catch(error => {
-            console.log(error)
-            this.setState({errors: error})})
+        deleteFlashcards(flashcard)
+        .then((response) => {
+            this.getMyList()
+        })
+        .catch(error => {
+          this.setState({errors: error})})
     }
 
     handleChange = (event) => {
@@ -119,7 +142,7 @@ class FlashcardManage extends Component {
                             <Col style={{display:"flex", justifyContent:"flex-end"}}>
                             <Image  src="../assets/cog32.png"
                                     style={{height:"1rem", marginRight:".4rem"}}
-                                    onClick={() => this.editFlashcard(flashcard)}/>
+                                    onClick={() => this.setForm(flashcard)}/>
                             <OverlayTrigger
                                   key={"tooltip" + i}
                                   trigger="click"
@@ -177,20 +200,35 @@ class FlashcardManage extends Component {
                                 <Form.Control
                                     type="text"
                                     name="front"
+                                    placeholder={front}
                                     value={front}
                                     onChange={this.handleChange} />
                             </Form.Group>
                             <Form.Group controlId="Back">
-                                <Form.Control name="back" type="text" value={back} onChange={this.handleChange}/>
+                                <Form.Control
+                                name="back"
+                                type="text"
+                                placeholder={back}
+                                value={back}
+                                onChange={this.handleChange}/>
                             </Form.Group>
                             <Form.Group controlId="Source">
-                                <Form.Control name="source" type="url" value={source} onChange={this.handleChange}/>
+                                <Form.Control
+                                name="source"
+                                type="url"
+                                placeholder={source}
+                                value={source}
+                                onChange={this.handleChange}/>
                             </Form.Group>
                         </Form>
                     </Card>
-                    <Button variant="success" style={{ marginTop: '30px' }} onClick={() => {this.postFlashcard()}}>Confirm Edits</Button>
+                    <Button variant="success" type="submit" style={{ marginTop: '30px' }} onClick={this.handleSubmit}>Add Flashcard</Button>
+                    <Button variant="success" type="submit" style={{ marginTop: '30px' }} onClick={this.handleEdit}>Confirm Edits</Button>
                     </Col>
                     </Row>
+                    {this.state.success &&
+                        <Redirect to="/flashcards"/>
+                    }
             </Container>
         )
     }

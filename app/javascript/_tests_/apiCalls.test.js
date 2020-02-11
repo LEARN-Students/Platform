@@ -1,9 +1,6 @@
 import { getFlashcards } from '../components/apiCalls'
-<<<<<<< HEAD
 // import { postFlashcards } from '../components/apiCalls'
 
-=======
->>>>>>> 75afa9f6f704eb364325b8431534b5ec9c9b4698
 
 describe('getFlashcards', () => {
     let mockResponse = [
@@ -58,9 +55,9 @@ describe('getFlashcards', () => {
         expect(getFlashcards()).rejects.toEqual(Error('fetch failed'))
     })
 })
-<<<<<<< HEAD
 
 //Once post api call is merged, uncomment:
+
 
 // describe('postFlashcards', () => {
 //     let mockFlashcard = [
@@ -93,5 +90,3 @@ describe('getFlashcards', () => {
 //         expect(window.fetch).toHaveBeenCalledWith(...expected)
 //     })
 // })
-=======
->>>>>>> 75afa9f6f704eb364325b8431534b5ec9c9b4698
