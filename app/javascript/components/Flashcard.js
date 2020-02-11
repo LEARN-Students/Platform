@@ -239,14 +239,16 @@ class Flashcard extends Component {
                         {flashcards.length > 0 && <Card.Text>
                          {flashcards[0].back}
                         </Card.Text>}
-                        {flashcards.length > 0 && <Card.Text style={{display:"flex", justifyContent:"flex-end"}}>
+                        {flashcards.length > 0 && <div><Card.Text style={{display:"flex", justifyContent:"flex-end"}}>
                          {flashcards[0].subject}
-                        </Card.Text>}
+                        </Card.Text><Card.Text style={{display:"flex", justifyContent:"flex-end"}}>{flashcards.length} left</Card.Text></div>}
+
                       </Card.Body>
                     </Card>
                         <Row style={{ justifyContent:"space-between", padding: "1.25rem"}}>
                             {flashcards.length == 0 && <Button variant="primary" onClick={() => {this.flashcardAggregator()}}>Begin</Button>}
                             {flashcards.length > 0 && <Button variant="warning" onClick={() => {this.keepStudying()}}>Keep Studying</Button>}
+                            {flashcards.length > 0 && <Button variant="primary" onClick={() => {window.open(flashcards[0].source)}}>Source</Button>}
                             {flashcards.length > 0 && <Button variant="primary" onClick={() => {this.flashcardAggregator()}}>Reset</Button>}
                             {flashcards.length > 0 && <Button variant="success" onClick={() => {this.gotIt()}}>Got It!</Button>}
                         </Row>
