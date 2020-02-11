@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { Button, Card, Form, Container, Col, Row } from "react-bootstrap"
 import { Link } from "react-router-dom"
+import { getFlashcards } from './apiCalls.js'
 
 
 // from getData we will get all the flashcards seperated by Subject
@@ -41,14 +42,7 @@ class Flashcard extends Component {
     componentDidMount = () => {
     // function will need to fetch data from our JSON API
     // we should seperate the data by subject so we can xport just what me need
-        fetch("http://localhost:3000/flashcards")
-            .then((response) => {
-                console.log(response)
-                console.log(response.status)
-                if(response.status == 200) {
-                    return(response.json())
-                }
-            })
+        getFlashcards()
             .then((flashcardsArray) => {
                 let subjects = [...new Set(flashcardsArray.map(item => item.subject))];
                 this.setState({subjects:subjects})
