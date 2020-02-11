@@ -42,6 +42,6 @@ export const editFlashcards = (flashcard) => {
         headers: {  // <- We specify that we're sending JSON, and expect JSON back
           'Content-Type': 'application/json'
         },
-        method: "PATCH"  // <- Here's our verb, so the correct endpoint is invoked on the server
+        method: "PUT"  // <- Here's our verb, so the correct endpoint is invoked on the server
       })
 }

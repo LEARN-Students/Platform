@@ -13,9 +13,9 @@ class FlashcardManage extends Component {
             user_id: false,
             errors: false,
             form: {
-                front: '',
-                back: '',
-                source: '',
+                front: 'Front',
+                back: 'Back',
+                source: 'Source URL',
                 subject: 'MyList',
                 user_id: 1
             }
@@ -46,18 +46,26 @@ class FlashcardManage extends Component {
         this.editFlashcard(myList[myList.length-1])
     }
 
+    setForm = (flashcard) => {
+        const{form} = this.state
+        const{myList} = this.state.myList
+        this.setState({form: flashcard})
+        console.log(flashcard);
+    }
+
     handleEdit = () => {
         console.log("handleEdit");
         this.editFlashcard(this.state.form)
         .then(() => {
             this.setState({success: true})
         })
+        console.log(this.state.form);
     }
+
     editFlashcard = (flashcard) => {
         console.log("edit");
         editFlashcards(flashcard)
         .then((response) => {
-            console.log(response);
             if(response.ok){
                 return this.getMyList()
             }
@@ -65,7 +73,6 @@ class FlashcardManage extends Component {
         .catch(error => {
           this.setState({errors: error})})
     }
-
 
     handleSubmit = () => {
         console.log("handleSubmit");
@@ -131,7 +138,7 @@ class FlashcardManage extends Component {
                             <Col style={{display:"flex", justifyContent:"flex-end"}}>
                             <Image  src="../assets/cog32.png"
                                     style={{height:"1rem", marginRight:".4rem"}}
-                                    onClick={() => this.editFlashcard(flashcard)}/>
+                                    onClick={() => this.setForm(flashcard)}/>
                             <Image  src="../assets/trash32.png"
                                     style={{height:"1rem"}}
                                     onClick={() => {this.deleteFlashcard(flashcard)}}/>
@@ -168,7 +175,7 @@ class FlashcardManage extends Component {
                                 <Form.Control
                                     type="text"
                                     name="front"
-                                    placeholder="Front"
+                                    placeholder={front}
                                     value={front}
                                     onChange={this.handleChange} />
                             </Form.Group>
@@ -176,7 +183,7 @@ class FlashcardManage extends Component {
                                 <Form.Control
                                 name="back"
                                 type="text"
-                                placeholder="Back"
+                                placeholder={back}
                                 value={back}
                                 onChange={this.handleChange}/>
                             </Form.Group>
@@ -184,7 +191,7 @@ class FlashcardManage extends Component {
                                 <Form.Control
                                 name="source"
                                 type="url"
-                                placeholder="Source URL"
+                                placeholder={source}
                                 value={source}
                                 onChange={this.handleChange}/>
                             </Form.Group>
