@@ -25,31 +25,24 @@ class FlashcardsController < ApplicationController
   # POST /flashcards
   # POST /flashcards.json
   def create
-    @flashcard = Flashcard.new(flashcard_params)
-
-    respond_to do |format|
-      if @flashcard.save
-        # format.html { redirect_to @flashcard, notice: 'Flashcard was successfully created.' }
-        format.json { render :show, status: :created, location: @flashcard }
-      else
-        # format.html { render :new }
-        format.json { render json: @flashcard.errors, status: :unprocessable_entity }
-      end
-    end
+      @flashcard = Flashcard.create(flashcard_params)
+        if @flashcard.valid?
+            render json: @flashcard
+        else
+            render json: @flashcard.errors
+        end
   end
 
   # PATCH/PUT /flashcards/1
   # PATCH/PUT /flashcards/1.json
   def update
-    respond_to do |format|
-      if @flashcard.update(flashcard_params)
-        # format.html { redirect_to @flashcard, notice: 'Flashcard was successfully updated.' }
-        format.json { render :show, status: :ok, location: @flashcard }
-      else
-        # format.html { render :edit }
-        format.json { render json: @flashcard.errors, status: :unprocessable_entity }
-      end
-    end
+      @flashcard = Flashcard.find(params[:id])
+      @flashcard.update(flashcard_params)
+        if @flashcard.valid?
+            render json: @flashcard
+        else
+            render json: @flashcard.errors
+        end
   end
 
   # DELETE /flashcards/1
