@@ -1,11 +1,13 @@
 import React, { Component } from "react"
 import { Button, Card, Form, Container, Col, Row, Image } from "react-bootstrap"
+import { getMyFlashcards, postFlashcards, deleteFlashcards, editFlashcards } from './apiCalls.js'
 
 
 class FlashcardManage extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            success: false,
             myList: [{front:"Manage Your Flashcards", back:"To add new flashcards please click Add Flashcard on the left-hand panel", subject:"myList"}],
             activeFlashcard: false,
             user_id: false,
@@ -14,18 +16,15 @@ class FlashcardManage extends Component {
                 front: '',
                 back: '',
                 source: '',
-                subject: ''
+                subject: 'MyList',
+                user_id: 1
             }
         }
     }
 
     getMyList = () => {
         this.setState({activeFlashcard: this.state.myList[0]})
-        fetch("http://localhost:3000/flashcards")
-            .then(response => {
-                if (response.ok) {return response.json()}
-                else {throw new Error('Something went wrong ...')}
-            })
+        getMyFlashcards()
             .then(flashcards => {
                 return flashcards.filter(flashcard => flashcard.subject === "MyList")
             })
@@ -47,45 +46,58 @@ class FlashcardManage extends Component {
         this.editFlashcard(myList[myList.length-1])
     }
 
+    handleEdit = () => {
+        console.log("handleEdit");
+        this.editFlashcard(this.state.form)
+        .then(() => {
+            this.setState({success: true})
+        })
+    }
     editFlashcard = (flashcard) => {
         console.log("edit");
-        this.setState({activeFlashcard:flashcard})
+        editFlashcards(flashcard)
+        .then((response) => {
+            console.log(response);
+            if(response.ok){
+                return this.getMyList()
+            }
+        })
+        .catch(error => {
+          this.setState({errors: error})})
+    }
+
+
+    handleSubmit = () => {
+        console.log("handleSubmit");
+        console.log(this.state.form);
+        this.postFlashcard(this.state.form)
+        .then(() => {
+            this.setState({success:true})
+        })
     }
 
     postFlashcard = (flashcard) => {
         console.log("post");
-        this.setState({activeFlashcard:flashcard})
-        return fetch('http://localhost:3000/flashcards', {
-            body: JSON.stringify(flashcard),  // <- we need to stringify the json for fetch
-            headers: {  // <- We specify that we're sending JSON, and expect JSON back
-              'Content-Type': 'application/json'
-            },
-            method: "POST"  // <- Here's our verb, so the correct endpoint is invoked on the server
-          })
-          // .then((response) => {
-          //     window.location.href = "http://localhost:3000/flashcards/manage";
-          // })
-          .catch(error => {
-            console.log(error)
-            this.setState({errors: error})})
+        postFlashcards(flashcard)
+        .then((response) => {
+            console.log(response);
+            if(response.ok){
+                return this.getMyList()
+            }
+        })
+        .catch(error => {
+          this.setState({errors: error})})
     }
 
     deleteFlashcard = (flashcard) => {
         console.log("delete");
         console.log(flashcard);
-        return fetch('http://localhost:3000/flashcards/' + flashcard.id, {
-            body: JSON.stringify(flashcard),  // <- we need to stringify the json for fetch
-            headers: {  // <- We specify that we're sending JSON, and expect JSON back
-              'Content-Type': 'application/json'
-            },
-            method: "DELETE"  // <- Here's our verb, so the correct endpoint is invoked on the server
-          })
-          .then((response) => {
-              this.getMyList()
-          })
-          .catch(error => {
-            console.log(error)
-            this.setState({errors: error})})
+        deleteFlashcards(flashcard)
+        .then((response) => {
+            this.getMyList()
+        })
+        .catch(error => {
+          this.setState({errors: error})})
     }
 
     handleChange = (event) => {
@@ -95,8 +107,6 @@ class FlashcardManage extends Component {
         this.setState({form: form})
         console.log(form);
     }
-
-
 
     render(){
       const style = {"align-content": "flex-end"}
@@ -158,20 +168,35 @@ class FlashcardManage extends Component {
                                 <Form.Control
                                     type="text"
                                     name="front"
+                                    placeholder="Front"
                                     value={front}
                                     onChange={this.handleChange} />
                             </Form.Group>
                             <Form.Group controlId="Back">
-                                <Form.Control name="back" type="text" value={back} onChange={this.handleChange}/>
+                                <Form.Control
+                                name="back"
+                                type="text"
+                                placeholder="Back"
+                                value={back}
+                                onChange={this.handleChange}/>
                             </Form.Group>
                             <Form.Group controlId="Source">
-                                <Form.Control name="source" type="url" value={source} onChange={this.handleChange}/>
+                                <Form.Control
+                                name="source"
+                                type="url"
+                                placeholder="Source URL"
+                                value={source}
+                                onChange={this.handleChange}/>
                             </Form.Group>
                         </Form>
                     </Card>
-                    <Button variant="success" style={{ marginTop: '30px' }} onClick={() => {this.postFlashcard()}}>Confirm Edits</Button>
+                    <Button variant="success" type="submit" style={{ marginTop: '30px' }} onClick={this.handleSubmit}>Add Flashcard</Button>
+                    <Button variant="success" type="submit" style={{ marginTop: '30px' }} onClick={this.handleEdit}>Confirm Edits</Button>
                     </Col>
                     </Row>
+                    {this.state.success &&
+                        <Redirect to="/flashcards"/>
+                    }
             </Container>
         )
     }
