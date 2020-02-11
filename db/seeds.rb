@@ -72,11 +72,13 @@ flashcards = [
     source: "https://www.w3schools.com/jsref/jsref_shift.asp",
     subject: "Javascript Methods",
     user_id: "1"},
+
     {front: "slice()",
     back: "Selects a part of an array, and returns the new array.",
     source: "https://www.w3schools.com/jsref/jsref_slice_array.asp",
     subject: "Javascript Methods",
     user_id: "1"},
+
     {front: "sort()",
     back: "Sorts the elements of an array.",
     source: "https://www.w3schools.com/jsref/jsref_sort.asp",
@@ -88,21 +90,25 @@ flashcards = [
     source: "https://ruby-doc.org/core-2.4.1/Array.html#method-i-pop",
     subject: "Ruby Methods",
     user_id: "1"},
+
     {front: "concat method of an array",
     back: "Appends the elements of +other_ary+s to self.",
     source: "https://ruby-doc.org/core-2.4.1/Array.html#method-i-length",
     subject: "Ruby Methods",
     user_id: "1"},
+
     {front: "push method of an array",
     back: "Append — Pushes the given object(s) on to the end of this array. This expression returns the array itself, so several appends may be chained together.",
     source: "https://ruby-doc.org/core-2.4.1/Array.html#method-i-push",
     subject: "Ruby Methods",
     user_id: "1"},
+
     {front: "unshift methd of an array",
     back: "Prepends objects to the front of self, moving other elements upwards. See also #shift for the opposite effect.",
     source: "https://ruby-doc.org/core-2.4.1/Array.html#method-i-unshift",
     subject: "Ruby Methods",
     user_id: "1"},
+
     {front: "sort! method of an array",
     back: "Sorts self in place.",
     source: "https://ruby-doc.org/core-2.4.1/Array.html#method-i-sort-21",
