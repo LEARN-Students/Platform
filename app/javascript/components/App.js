@@ -1,11 +1,13 @@
 import React from "react"
-import { Navbar, Nav } from "react-bootstrap"
+import { Navbar, Nav, Image } from "react-bootstrap"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 //pages
 import Home from "./Home"
 import About from "./About"
 import Flashcard from "./Flashcard"
 import FlashcardManage from "./FlashcardManage"
+import "bootswatch/dist/lumen/bootstrap.min.css"; 
+
 
 class App extends React.Component {
     constructor(props) {
@@ -26,7 +28,11 @@ class App extends React.Component {
     return (
       <Router>
         <Navbar style={{ marginBottom: "4em" }} bg="light" expand="lg" >
-          <Navbar.Brand href="/">LOGO</Navbar.Brand>
+          <Navbar.Brand href="/" fluid><Image
+          style={{ height: "4em" }}
+          src="../assets/learn_students_logo.png"
+          alt="Learn Students Logo"
+          /></Navbar.Brand>
               <Nav.Link href="/">Home</Nav.Link>
               <Nav.Link href="/flashcards">Flashcards</Nav.Link>
               <Nav.Link className="about" href="/about">About</Nav.Link>

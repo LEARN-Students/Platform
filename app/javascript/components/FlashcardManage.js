@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Button, Card, Form, Container, Col, Row, Image } from "react-bootstrap"
+import { Button, Card, Form, Container, Col, Row, Image, OverlayTrigger, Popover } from "react-bootstrap"
 
 
 class FlashcardManage extends Component {
@@ -96,8 +96,6 @@ class FlashcardManage extends Component {
         console.log(form);
     }
 
-
-
     render(){
       const style = {"align-content": "flex-end"}
       const { activeFlashcard, myList } = this.state
@@ -122,9 +120,30 @@ class FlashcardManage extends Component {
                             <Image  src="../assets/cog32.png"
                                     style={{height:"1rem", marginRight:".4rem"}}
                                     onClick={() => this.editFlashcard(flashcard)}/>
-                            <Image  src="../assets/trash32.png"
-                                    style={{height:"1rem"}}
-                                    onClick={() => {this.deleteFlashcard(flashcard)}}/>
+                            <OverlayTrigger
+                                  key={"tooltip" + i}
+                                  trigger="click"
+                                  placement="right"
+                                  ref={this.trashIcon}
+                                  overlay={
+                                    <Popover>
+                                    <Popover.Content><Row><Col>
+                                      Are you sure you want to delete this Flashcard Forever?</Col>
+                                      </Row>
+                                      <Row>
+                                      <Col style={{display:"flex", justifyContent:"flex-end"}}>
+                                      <Button variant="danger" onClick={() => {this.deleteFlashcard(flashcard)}}>Delete </Button>
+                                      </Col>
+                                      </Row>
+                                    </Popover.Content>
+                                    </Popover>
+                                  }
+                                >
+                                <Image  src="../assets/trash32.png"
+                                        style={{height:"1rem"}}
+                                        />
+                                    </OverlayTrigger>
+
                             </Col>
                             </Form.Group>
                         )
@@ -178,6 +197,11 @@ class FlashcardManage extends Component {
 }
 
 export default FlashcardManage
+
+
+
+
+
 
 
 
