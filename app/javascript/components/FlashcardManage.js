@@ -11,10 +11,10 @@ class FlashcardManage extends Component {
             user_id: false,
             errors: false,
             form: {
-                front: "New Flashcard",
-                back: "Body",
-                source: "Source",
-                subject: "myList"
+                front: '',
+                back: '',
+                source: '',
+                subject: ''
             }
         }
     }
@@ -87,8 +87,9 @@ class FlashcardManage extends Component {
     handleChange = (event) => {
         console.log("handleChange Called");
         let { form } = this.state
-        form[event.target.front] = event.target.value
+        form[event.target.name] = event.target.value
         this.setState({form: form})
+        console.log(form);
     }
 
 
@@ -96,6 +97,7 @@ class FlashcardManage extends Component {
     render(){
       const style = {"align-content": "flex-end"}
       const { activeFlashcard, myList } = this.state
+      let {front, back, source, subject} = this.state.form
         return(
             <Container>
                 <header>
@@ -151,14 +153,15 @@ class FlashcardManage extends Component {
                             <Form.Group controlId="Front">
                                 <Form.Control
                                     type="text"
-                                    onChange={this.handleChange}
-                                    value={activeFlashcard.front} />
+                                    name="front"
+                                    value={front}
+                                    onChange={this.handleChange} />
                             </Form.Group>
                             <Form.Group controlId="Back">
-                                <Form.Control type="text" value={activeFlashcard.back} />
+                                <Form.Control name="back" type="text" value={back} onChange={this.handleChange}/>
                             </Form.Group>
                             <Form.Group controlId="Source">
-                                <Form.Control type="url" value={activeFlashcard.source} />
+                                <Form.Control name="source" type="url" value={source} onChange={this.handleChange}/>
                             </Form.Group>
                         </Form>
                     </Card>
