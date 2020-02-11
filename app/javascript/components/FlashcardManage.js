@@ -1,10 +1,7 @@
 import React, { Component } from "react"
-<<<<<<< HEAD
 import { Button, Card, Form, Container, Col, Row, Image, OverlayTrigger, Popover } from "react-bootstrap"
-=======
-import { Button, Card, Form, Container, Col, Row, Image } from "react-bootstrap"
 import { getMyFlashcards, postFlashcards, deleteFlashcards, editFlashcards } from './apiCalls.js'
->>>>>>> 7883f19a603d2d38a9b19eec576b7f400f290978
+
 
 
 class FlashcardManage extends Component {
@@ -237,7 +234,7 @@ class FlashcardManage extends Component {
 export default FlashcardManage
 
 
-
+// fvdssvs
 
 
 
