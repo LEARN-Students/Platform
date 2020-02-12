@@ -3,12 +3,6 @@ import { Button, Card, Form, Container, Col, Row } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import { getFlashcards } from './apiCalls.js'
 
-
-// from getData we will get all the flashcards seperated by Subject
-//
-
-
-
 class Flashcard extends Component {
     constructor(props) {
         super(props);
@@ -76,8 +70,6 @@ class Flashcard extends Component {
         // But because the sorting function is not meant to be used this way, not all permutations have the same probability.
         array.sort(() => Math.random() - 0.5)
         this.setState({flashcards: array})
-        console.log(this.state.flashcards);
-        console.log(this.state.flashcards[0]);
     }
 
     flashcardAggregator = () => {
@@ -227,6 +219,7 @@ class Flashcard extends Component {
                         </Card>
                     </Col>
                     <Col sm={8}>
+                    {flashcards.length > 0 &&<h4 style={{display:"flex", justifyContent:"center"}}>1 / {flashcards.length}</h4>}
                     <Card style={{ width: '100%' }}>
                       <Card.Body>
                         {/*if there are no flashcards in the array*/}
@@ -239,16 +232,19 @@ class Flashcard extends Component {
                         {flashcards.length > 0 && <Card.Text>
                          {flashcards[0].back}
                         </Card.Text>}
-                        {flashcards.length > 0 && <div><Card.Text style={{display:"flex", justifyContent:"flex-end"}}>
-                         {flashcards[0].subject}
-                        </Card.Text><Card.Text style={{display:"flex", justifyContent:"flex-end"}}>{flashcards.length} left</Card.Text></div>}
-
-                      </Card.Body>
+                            <Row>
+                                <Col>
+                                {flashcards.length > 0 && <Button variant="primary" onClick={() => {window.open(flashcards[0].source)}}>Source</Button>}
+                                </Col>
+                                <Col>
+                                {flashcards.length > 0 && <Card.Text style={{display:"flex", justifyContent:"flex-end"}} > {flashcards[0].subject}</Card.Text>}
+                                </Col>
+                            </Row>
+                        </Card.Body>
                     </Card>
                         <Row style={{ justifyContent:"space-between", padding: "1.25rem"}}>
                             {flashcards.length == 0 && <Button variant="primary" onClick={() => {this.flashcardAggregator()}}>Begin</Button>}
                             {flashcards.length > 0 && <Button variant="warning" onClick={() => {this.keepStudying()}}>Keep Studying</Button>}
-                            {flashcards.length > 0 && <Button variant="primary" onClick={() => {window.open(flashcards[0].source)}}>Source</Button>}
                             {flashcards.length > 0 && <Button variant="primary" onClick={() => {this.flashcardAggregator()}}>Reset</Button>}
                             {flashcards.length > 0 && <Button variant="success" onClick={() => {this.gotIt()}}>Got It!</Button>}
                         </Row>
@@ -260,3 +256,5 @@ class Flashcard extends Component {
 }
 
 export default Flashcard
+//
+// style={{display:"flex", justifyContent:"flex-end"}}
