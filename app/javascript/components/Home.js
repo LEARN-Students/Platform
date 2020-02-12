@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Button, Row, Col, Container, Media } from "react-bootstrap"
+import { Button, Row, Col, Container, Media, Image } from "react-bootstrap"
 import { Link } from "react-router-dom"
 
 class Home extends Component {
@@ -26,12 +26,10 @@ class Home extends Component {
                         </a>}
                     </Col>
                     <Col xs={4}>
-                        <Media>
-                        <img
+                        <Image
                         src="../assets/learn-block-web.jpg"
                         alt="Learn Academy Logo"
                         />
-                        </Media>
                     </Col>
                 </Row>
             </Container>
