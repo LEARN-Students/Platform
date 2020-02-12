@@ -1,5 +1,5 @@
 export const getFlashcards = () => {
-    return fetch('http://localhost:3000/flashcards')
+    return fetch('/flashcards')
     .then(response => {
         if(!response.ok) {
             throw Error('Error fetching flashcards')
@@ -9,7 +9,7 @@ export const getFlashcards = () => {
 }
 
 export const getMyFlashcards = () => {
-    return fetch("http://localhost:3000/flashcards")
+    return fetch("/flashcards")
         .then(response => {
             if (response.ok) {return response.json()}
             else {throw new Error('Something went wrong ...')}
@@ -17,7 +17,7 @@ export const getMyFlashcards = () => {
 }
 
 export const postFlashcards = (flashcard) => {
-    return fetch('http://localhost:3000/flashcards', {
+    return fetch('/flashcards', {
         body: JSON.stringify(flashcard),  // <- we need to stringify the json for fetch
         headers: {  // <- We specify that we're sending JSON, and expect JSON back
           'Content-Type': 'application/json'
@@ -27,7 +27,7 @@ export const postFlashcards = (flashcard) => {
 }
 
 export const deleteFlashcards = (flashcard) => {
-    return fetch('http://localhost:3000/flashcards/' + flashcard.id, {
+    return fetch('/flashcards/' + flashcard.id, {
         body: JSON.stringify(flashcard),  // <- we need to stringify the json for fetch
         headers: {  // <- We specify that we're sending JSON, and expect JSON back
           'Content-Type': 'application/json'
@@ -37,7 +37,7 @@ export const deleteFlashcards = (flashcard) => {
 }
 
 export const editFlashcards = (flashcard) => {
-    return fetch('http://localhost:3000/flashcards/' + flashcard.id, {
+    return fetch('/flashcards/' + flashcard.id, {
         body: JSON.stringify(flashcard),  // <- we need to stringify the json for fetch
         headers: {  // <- We specify that we're sending JSON, and expect JSON back
           'Content-Type': 'application/json'
