@@ -1,5 +1,4 @@
-import { getFlashcards } from '../components/apiCalls'
-// import { postFlashcards } from '../components/apiCalls'
+import { getFlashcards, postFlashcards, getMyFlashcards, deleteFlashcards, editFlashcards } from '../components/apiCalls'
 
 
 describe('getFlashcards', () => {
@@ -56,37 +55,124 @@ describe('getFlashcards', () => {
     })
 })
 
-//Once post api call is merged, uncomment:
+describe('getMyFlashcards', () => {
+    let mockFlashcard = [
+        {
+            id:1,
+            front: "test",
+            back: "back of test",
+            source: "source of test",
+            subject: "myList",
+            user_id: 1
+        }
+    ]
+    beforeEach(() => {
+        window.fetch = jest.fn().mockImplementation(() => {
+            return Promise.resolve({
+                ok: true,
+                json: () => Promise.resolve(mockFlashcard)
+            })
+        })
+    })
+    it('should call fetch with the correct url', () => {
+        getMyFlashcards()
+        expect(window.fetch).toHaveBeenCalledWith('http://localhost:3000/flashcards')
+    })
+    it('should return an array of my flashcards', () => {
+        expect(getMyFlashcards()).resolves.toEqual(mockFlashcard)
+    })
+    // First error test is for when the fetch resolves but the response is not OK.
+    it('should return an error', () => {
+        window.fetch = jest.fn().mockImplementation(() => {
+            return Promise.resolve({
+                ok:false
+            })
+        })
+        expect(getMyFlashcards()).rejects.toEqual(Error('Error fetching flashcards'))
+    })
+    // Second error test is for when a fetch call fails
+    it('should return an error if promise rejects', () => {
+        window.fetch = jest.fn().mockImplementation(() => {
+            return Promise.reject(Error('fetch failed'))
+        })
+        expect(getMyFlashcards()).rejects.toEqual(Error('fetch failed'))
+    })
+})
 
 
-// describe('postFlashcards', () => {
-//     let mockFlashcard = [
-//         {
-//             id:1,
-//             front: "test",
-//             back: "back of test",
-//             source: "source of test",
-//             subject: "subject of test",
-//             user_id: 1
-//         }
-//     ]
-//     beforeEach(() => {
-//         window.fetch = jest.fn().mockImplementation(() => {
-//             return Promise.resolve({
-//                 ok: true,
-//                 json: () => Promise.resolve(mockFlashcard)
-//             })
-//         })
-//     })
-//     it('should fetch with the correct arguments', () => {
-//         const expected = ['http://localhost:3000/flashcards/manage', {
-//             method: 'POST',
-//             body: JSON.stringify(mockFlashcard),
-//             headers: {
-//                 'Content-Type': 'application/json'
-//             }
-//         }]
-//         postFlashcards(mockFlashcard)
-//         expect(window.fetch).toHaveBeenCalledWith(...expected)
-//     })
-// })
+describe('postFlashcards and editFlashcards', () => {
+    let mockFlashcard = [
+        {
+            id:1,
+            front: "test",
+            back: "back of test",
+            source: "source of test",
+            subject: "subject of test",
+            user_id: 1
+        }
+    ]
+    beforeEach(() => {
+        window.fetch = jest.fn().mockImplementation(() => {
+            return Promise.resolve({
+                ok: true,
+                json: () => Promise.resolve(mockFlashcard)
+            })
+        })
+    })
+    it('should fetch with the correct arguments', () => {
+        const expected = ['http://localhost:3000/flashcards', {
+            method: 'POST',
+            body: JSON.stringify(mockFlashcard),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }]
+        postFlashcards(mockFlashcard)
+        expect(window.fetch).toHaveBeenCalledWith(...expected)
+    })
+    it('should fetch with the correct arguments', () => {
+        const expected = ['http://localhost:3000/flashcards/' + mockFlashcard.id, {
+            method: 'PUT',
+            body: JSON.stringify(mockFlashcard),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }]
+        editFlashcards(mockFlashcard)
+        expect(window.fetch).toHaveBeenCalledWith(...expected)
+    })
+})
+
+
+
+describe('deleteFlashcards', () => {
+    let mockFlashcard = [
+        {
+            id:1,
+            front: "test",
+            back: "back of test",
+            source: "source of test",
+            subject: "myList",
+            user_id: 1
+        }
+    ]
+    beforeEach(() => {
+        window.fetch = jest.fn().mockImplementation(() => {
+            return Promise.resolve({
+                ok: true,
+                json: () => Promise.resolve(mockFlashcard)
+            })
+        })
+    })
+    it('should fetch with the correct arguments', () => {
+        const expected = ['http://localhost:3000/flashcards/' + mockFlashcard.id, {
+            method: 'DELETE',
+            body: JSON.stringify(mockFlashcard),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }]
+        deleteFlashcards(mockFlashcard)
+        expect(window.fetch).toHaveBeenCalledWith(...expected)
+    })
+})
