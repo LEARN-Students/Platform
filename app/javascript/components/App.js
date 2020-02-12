@@ -6,7 +6,7 @@ import Home from "./Home"
 import About from "./About"
 import Flashcard from "./Flashcard"
 import FlashcardManage from "./FlashcardManage"
-import "bootswatch/dist/lumen/bootstrap.min.css"; 
+import "bootswatch/dist/lumen/bootstrap.min.css";
 
 
 class App extends React.Component {
@@ -28,7 +28,7 @@ class App extends React.Component {
     return (
       <Router>
         <Navbar style={{ marginBottom: "4em" }} bg="light" expand="lg" >
-          <Navbar.Brand href="/" fluid><Image
+          <Navbar.Brand href="/"><Image
           style={{ height: "4em" }}
           src="../assets/learn_students_logo.png"
           alt="Learn Students Logo"

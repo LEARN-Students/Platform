@@ -14,10 +14,10 @@ class FlashcardManage extends Component {
             user_id: false,
             errors: false,
             form: {
-                front: 'Front',
-                back: 'Back',
-                source: 'Source URL',
-                subject: 'MyList',
+                front: 'New Flashcard',
+                back: 'Backside',
+                source: 'Optional Source URL',
+                subject: 'My List',
                 user_id: 1
             }
         }
@@ -27,40 +27,24 @@ class FlashcardManage extends Component {
         this.setState({activeFlashcard: this.state.myList[0]})
         getMyFlashcards()
             .then(flashcards => {
-                return flashcards.filter(flashcard => flashcard.subject === "MyList")
+                return flashcards.filter(flashcard => flashcard.subject === "My List")
             })
             .then(myList => {
                 this.setState({myList: myList})
             })
-            .catch(error => this.setState({errors: error}))
+            .catch(error => console.log(error))
     }
 
     componentDidMount = () => {
         this.getMyList()
     }
 
-    addFlashcard = () => {
-        console.log("add Flashcard")
+    newFlashcard = () => {
+        console.log("new Flashcard")
         let { myList, form } = this.state
-        myList.push(form)
+        this.resetForm()
+        myList.unshift(form)
         this.setState({myList: myList})
-        this.editFlashcard(myList[myList.length-1])
-    }
-
-    setForm = (flashcard) => {
-        const{form} = this.state
-        const{myList} = this.state.myList
-        this.setState({form: flashcard})
-        console.log(flashcard);
-    }
-
-    handleEdit = () => {
-        console.log("handleEdit");
-        this.editFlashcard(this.state.form)
-        .then(() => {
-            this.setState({success: true})
-        })
-        console.log(this.state.form);
     }
 
     editFlashcard = (flashcard) => {
@@ -71,17 +55,7 @@ class FlashcardManage extends Component {
                 return this.getMyList()
             }
         })
-        .catch(error => {
-          this.setState({errors: error})})
-    }
-
-    handleSubmit = () => {
-        console.log("handleSubmit");
-        console.log(this.state.form);
-        this.postFlashcard(this.state.form)
-        .then(() => {
-            this.setState({success:true})
-        })
+        .catch(error => console.log(error))
     }
 
     postFlashcard = (flashcard) => {
@@ -93,8 +67,7 @@ class FlashcardManage extends Component {
                 return this.getMyList()
             }
         })
-        .catch(error => {
-          this.setState({errors: error})})
+        .catch(error => console.log(error))
     }
 
     deleteFlashcard = (flashcard) => {
@@ -104,26 +77,39 @@ class FlashcardManage extends Component {
         .then((response) => {
             this.getMyList()
         })
-        .catch(error => {
-          this.setState({errors: error})})
+        .catch(error => console.log(error))
     }
 
+    resetForm = () => {
+        const newForm = {
+            front: 'New Flashcard',
+            back: 'Backside',
+            source: 'Optional Source URL',
+            subject: 'My List',
+            // REMEMBER TO CHANGE THIS!!!!
+            user_id: 1
+        }
+        this.setState(state => {form:newForm})
+    }
+
+    grabFlashcard = (flashcard) => {
+        this.setState({form: flashcard})
+    }
+
+    // Allows the form to work
     handleChange = (event) => {
-        console.log("handleChange Called");
         let { form } = this.state
         form[event.target.name] = event.target.value
         this.setState({form: form})
-        console.log(form);
     }
 
     render(){
-      const style = {"align-content": "flex-end"}
       const { activeFlashcard, myList } = this.state
       let {front, back, source, subject} = this.state.form
         return(
             <Container>
                 <header>
-                        <h1 style={{ marginBottom:"4rem" }}>Flashcard Management</h1>
+                    <h1 style={{ marginBottom:"4rem" }}>Flashcard Management</h1>
                 </header>
                 <Row>
                 <Col sm={4}>
@@ -134,12 +120,12 @@ class FlashcardManage extends Component {
                     <Form>
                     { myList.map((flashcard,i) => {
                         return(
-                            <Form.Group as={Row} key={flashcard.front+i} style={{}}>
-                            <Col><Form.Label>{flashcard.front}</Form.Label></Col>
+                            <Form.Group as={Row} key={flashcard.front+i}>
+                            <Col><Form.Label>{flashcard.front.substr(0,19)}</Form.Label></Col>
                             <Col style={{display:"flex", justifyContent:"flex-end"}}>
                             <Image  src="../assets/cog32.png"
                                     style={{height:"1rem", marginRight:".4rem"}}
-                                    onClick={() => this.setForm(flashcard)}/>
+                                    onClick={() => this.grabFlashcard(flashcard)}/>
                             <OverlayTrigger
                                   key={"tooltip" + i}
                                   trigger="click"
@@ -170,104 +156,56 @@ class FlashcardManage extends Component {
                     })}
                     </Form>
                     </Card.Text>
-                    <Button variant="primary" onClick={() => {this.addFlashcard()}}>Add Flashcard</Button>
+                    <Button variant="primary" onClick={() => {this.newFlashcard()}}>New Flashcard</Button>
                   </Card.Body>
                 </Card>
                 <Button variant="primary" style={{ margin: "1.25rem"}} href="/flashcards">Back</Button>
                 </Col>
                     <Col sm={8}>
-                    <Card style={{ width: '100%' }}>
-                      <Card.Body>
-                      {activeFlashcard && <Card.Title>{activeFlashcard.front}</Card.Title>}
-                      {activeFlashcard &&
-                        <Card.Text>
-                          {activeFlashcard.back}
-                        </Card.Text>}
-                        {!activeFlashcard && <Card.Title>No Flashcard Selected Front</Card.Title>}
-                        {!activeFlashcard &&
-                          <Card.Text>
-                            Some quick example text to build on the card title and make up the bulk of
-                            the card's content.
-                          </Card.Text>}
-                      </Card.Body>
-                    </Card>
                     <Card>
-                        <Form style={{}}>
+                    <Container>
+                    <Card.Body>
+                    {activeFlashcard && <Card.Title>{activeFlashcard.front}</Card.Title>}
+                    {activeFlashcard &&
+                      <Card.Text>
+                        {activeFlashcard.back}
+                      </Card.Text>}
+                    </Card.Body>
+                        <Form>
                             <Form.Group controlId="Front">
+                            <Form.Label>Flashcard Frontside</Form.Label>
                                 <Form.Control
                                     type="text"
                                     name="front"
                                     placeholder={front}
-                                    value={front}
                                     onChange={this.handleChange} />
                             </Form.Group>
                             <Form.Group controlId="Back">
+                            <Form.Label>Flashcard Backside</Form.Label>
                                 <Form.Control
                                 name="back"
                                 type="text"
                                 placeholder={back}
-                                value={back}
                                 onChange={this.handleChange}/>
                             </Form.Group>
                             <Form.Group controlId="Source">
+                            <Form.Label>Optional Source URL</Form.Label>
                                 <Form.Control
                                 name="source"
                                 type="url"
                                 placeholder={source}
-                                value={source}
                                 onChange={this.handleChange}/>
                             </Form.Group>
                         </Form>
+                        </Container>
                     </Card>
-                    <Button variant="success" type="submit" style={{ marginTop: '30px' }} onClick={this.handleSubmit}>Add Flashcard</Button>
-                    <Button variant="success" type="submit" style={{ marginTop: '30px' }} onClick={this.handleEdit}>Confirm Edits</Button>
+                    <Button variant="success" type="submit" style={{ marginTop: '30px' }} onClick={() => this.postFlashcard(this.state.form)}>Add Flashcard</Button>
+                    <Button variant="success" type="submit" style={{ marginTop: '30px' }} onClick={() => this.editFlashcard(this.state.form)}>Confirm Edits</Button>
                     </Col>
                     </Row>
-                    {this.state.success &&
-                        <Redirect to="/flashcards"/>
-                    }
             </Container>
         )
     }
 }
 
 export default FlashcardManage
-
-
-// fvdssvs
-
-
-
-
-
-// <Card style={{ width: '100%' }}>
-//   <Card.Body>
-//   {activeFlashcard && <Card.Title>{activeFlashcard.front}</Card.Title>}
-//   {activeFlashcard &&
-//     <Card.Text>
-//       {activeFlashcard.back}
-//     </Card.Text>}
-//     {!activeFlashcard && <Card.Title>No Flashcard Selected Front</Card.Title>}
-//     {!activeFlashcard &&
-//       <Card.Text>
-//         Some quick example text to build on the card title and make up the bulk of
-//         the card's content.
-//       </Card.Text>}
-//   </Card.Body>
-// </Card>
-
-// <Card style={{ width: '100%', marginTop: '30px' }}>
-// <Card.Body>
-// {activeFlashcard && <Card.Title>Flashcard Selected Back Side</Card.Title>}
-// {activeFlashcard &&
-//   <Card.Text>
-//     {myList[0].back}
-//   </Card.Text>}
-//   {!activeFlashcard && <Card.Title>No Flashcard Selected Black</Card.Title>}
-//   {!activeFlashcard &&
-//     <Card.Text>
-//       Some quick example text to build on the card title and make up the bulk of
-//       the card's content.
-//     </Card.Text>}
-// </Card.Body>
-// </Card>
