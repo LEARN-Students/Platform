@@ -2,13 +2,10 @@ import React, { Component } from "react"
 import { Button, Card, Form, Container, Col, Row, Image, OverlayTrigger, Popover } from "react-bootstrap"
 import { getMyFlashcards, postFlashcards, deleteFlashcards, editFlashcards } from './apiCalls.js'
 
-
-
 class FlashcardManage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            success: false,
             myList: [{front:"Manage Your Flashcards", back:"To add new flashcards please click Add Flashcard on the left-hand panel", subject:"myList"}],
             activeFlashcard: false,
             user_id: false,
@@ -23,7 +20,15 @@ class FlashcardManage extends Component {
         }
     }
 
+    componentDidMount = () => {
+    // When the page renders componentDidMount is called.
+    // This is a React Lifecycle Method.
+    // For more info visit: https://reactjs.org/docs/react-component.html#componentdidmount
+        this.getMyList()
+    }
+
     getMyList = () => {
+    // getMyList primarily is used for retrieving My List subject flashcards that correspond to the user's id
         this.setState({activeFlashcard: this.state.myList[0]})
         getMyFlashcards()
             .then(flashcards => {
@@ -33,10 +38,6 @@ class FlashcardManage extends Component {
                 this.setState({myList: myList})
             })
             .catch(error => console.log(error))
-    }
-
-    componentDidMount = () => {
-        this.getMyList()
     }
 
     newFlashcard = () => {
