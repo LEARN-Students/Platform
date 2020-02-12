@@ -6,17 +6,19 @@ class FlashcardManage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            myList: [{front:"Manage Your Flashcards", back:"To add new flashcards please click Add Flashcard on the left-hand panel", subject:"myList"}],
             activeFlashcard: false,
             user_id: false,
-            errors: false,
+            myList: [{
+                front:"Manage Your Flashcards",
+                back:"To add new flashcards please click Add Flashcard on the left-hand panel",
+                subject:"my List"}],
             form: {
                 front: 'New Flashcard',
                 back: 'Backside',
                 source: 'Optional Source URL',
                 subject: 'My List',
-                user_id: 1
-            }
+                user_id: this.props.current_user.id,
+            },
         }
     }
 
@@ -34,6 +36,9 @@ class FlashcardManage extends Component {
             .then(flashcards => {
                 return flashcards.filter(flashcard => flashcard.subject === "My List")
             })
+            .then(myListAll => {
+                return myListAll.filter(flashcard => flashcard.user_id === this.props.current_user.id)
+            })
             .then(myList => {
                 this.setState({myList: myList})
             })
@@ -43,9 +48,14 @@ class FlashcardManage extends Component {
     newFlashcard = () => {
         console.log("new Flashcard")
         let { myList, form } = this.state
-        this.resetForm()
-        myList.unshift(form)
-        this.setState({myList: myList})
+        const newForm = [{
+            front: 'New Flashcard',
+            back: 'Backside',
+            source: 'Optional Source URL',
+            subject: 'My List',
+            user_id: this.props.current_user.id
+        }]
+        this.setState({form: newForm[0], myList: newForm.concat(myList)})
     }
 
     editFlashcard = (flashcard) => {
@@ -81,20 +91,9 @@ class FlashcardManage extends Component {
         .catch(error => console.log(error))
     }
 
-    resetForm = () => {
-        const newForm = {
-            front: 'New Flashcard',
-            back: 'Backside',
-            source: 'Optional Source URL',
-            subject: 'My List',
-            // REMEMBER TO CHANGE THIS!!!!
-            user_id: 1
-        }
-        this.setState(state => {form:newForm})
-    }
-
     grabFlashcard = (flashcard) => {
         this.setState({form: flashcard})
+        this.setState({activeFlashcard: flashcard})
     }
 
     // Allows the form to work
@@ -122,7 +121,7 @@ class FlashcardManage extends Component {
                     { myList.map((flashcard,i) => {
                         return(
                             <Form.Group as={Row} key={flashcard.front+i}>
-                            <Col><Form.Label>{flashcard.front.substr(0,19)}</Form.Label></Col>
+                            <Col xs={9}><Form.Label>{flashcard.front.substr(0,29)}</Form.Label></Col>
                             <Col style={{display:"flex", justifyContent:"flex-end"}}>
                             <Image  src="../assets/cog32.png"
                                     style={{height:"1rem", marginRight:".4rem"}}
@@ -146,10 +145,8 @@ class FlashcardManage extends Component {
                                     </Popover>
                                   }
                                 >
-                                <Image  src="../assets/trash32.png"
-                                        style={{height:"1rem"}}
-                                        />
-                                    </OverlayTrigger>
+                                <Image src="../assets/trash32.png" style={{height:"1rem"}}/>
+                            </OverlayTrigger>
 
                             </Col>
                             </Form.Group>
@@ -166,10 +163,10 @@ class FlashcardManage extends Component {
                     <Card>
                     <Container>
                     <Card.Body>
-                    {activeFlashcard && <Card.Title>{activeFlashcard.front}</Card.Title>}
+                    {activeFlashcard && <Card.Title>{front}</Card.Title>}
                     {activeFlashcard &&
                       <Card.Text>
-                        {activeFlashcard.back}
+                        {back}
                       </Card.Text>}
                     </Card.Body>
                         <Form>
@@ -178,7 +175,7 @@ class FlashcardManage extends Component {
                                 <Form.Control
                                     type="text"
                                     name="front"
-                                    placeholder={front}
+                                    value={front}
                                     onChange={this.handleChange} />
                             </Form.Group>
                             <Form.Group controlId="Back">
@@ -186,7 +183,7 @@ class FlashcardManage extends Component {
                                 <Form.Control
                                 name="back"
                                 type="text"
-                                placeholder={back}
+                                value={back}
                                 onChange={this.handleChange}/>
                             </Form.Group>
                             <Form.Group controlId="Source">
@@ -194,7 +191,7 @@ class FlashcardManage extends Component {
                                 <Form.Control
                                 name="source"
                                 type="url"
-                                placeholder={source}
+                                value={source}
                                 onChange={this.handleChange}/>
                             </Form.Group>
                         </Form>

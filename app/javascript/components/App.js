@@ -12,11 +12,8 @@ import "bootswatch/dist/lumen/bootstrap.min.css";
 class App extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-
-        }
-
     }
+
     render () {
         const {
           logged_in,
@@ -42,7 +39,8 @@ class App extends React.Component {
         </Navbar>
         <Switch>
             <Route exact path="/flashcards" component={ Flashcard } />
-            <Route exact path="/flashcards/manage" component={ FlashcardManage } current_user={current_user}/>
+            <Route exact path="/flashcards/manage"
+                   render={props => (<FlashcardManage{...props} current_user={current_user}/>)}/>
             <Route exact path="/about" component={ About } />
             <Route exact path="/" render={props => (<Home {...props}/>)}/>
         </Switch>
