@@ -7,6 +7,7 @@ import About from "./About"
 import Flashcard from "./Flashcard"
 import FlashcardManage from "./FlashcardManage"
 import "bootswatch/dist/lumen/bootstrap.min.css";
+// import ReactCardFlip from 'react-card-flip';
 
 
 class App extends React.Component {
