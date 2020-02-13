@@ -31,7 +31,7 @@ describe('getFlashcards', () => {
     // Fetch should be invoked with the right url
     it('should call fetch with the correct url', () => {
         getFlashcards()
-        expect(window.fetch).toHaveBeenCalledWith('http://localhost:3000/flashcards')
+        expect(window.fetch).toHaveBeenCalledWith('/flashcards')
     })
     // If response is ok, we should have an array of flashcards
     it('should return an array of flashcards', () => {
@@ -76,7 +76,7 @@ describe('getMyFlashcards', () => {
     })
     it('should call fetch with the correct url', () => {
         getMyFlashcards()
-        expect(window.fetch).toHaveBeenCalledWith('http://localhost:3000/flashcards')
+        expect(window.fetch).toHaveBeenCalledWith('/flashcards')
     })
     it('should return an array of my flashcards', () => {
         expect(getMyFlashcards()).resolves.toEqual(mockFlashcard)
@@ -120,7 +120,7 @@ describe('postFlashcards and editFlashcards', () => {
         })
     })
     it('should fetch with the correct arguments', () => {
-        const expected = ['http://localhost:3000/flashcards', {
+        const expected = ['/flashcards', {
             method: 'POST',
             body: JSON.stringify(mockFlashcard),
             headers: {
@@ -131,7 +131,7 @@ describe('postFlashcards and editFlashcards', () => {
         expect(window.fetch).toHaveBeenCalledWith(...expected)
     })
     it('should fetch with the correct arguments', () => {
-        const expected = ['http://localhost:3000/flashcards/' + mockFlashcard.id, {
+        const expected = ['/flashcards/' + mockFlashcard.id, {
             method: 'PUT',
             body: JSON.stringify(mockFlashcard),
             headers: {
@@ -165,7 +165,7 @@ describe('deleteFlashcards', () => {
         })
     })
     it('should fetch with the correct arguments', () => {
-        const expected = ['http://localhost:3000/flashcards/' + mockFlashcard.id, {
+        const expected = ['/flashcards/' + mockFlashcard.id, {
             method: 'DELETE',
             body: JSON.stringify(mockFlashcard),
             headers: {
