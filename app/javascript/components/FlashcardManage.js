@@ -165,12 +165,12 @@ class FlashcardManage extends Component {
                     <Card>
                     <Container>
                     <Card.Body>
-                    {activeFlashcard && <Card.Title>{front}</Card.Title>}
+                    {activeFlashcard && <Card.Title style={{fontSize:"2rem"}}>{front}</Card.Title>}
                     {activeFlashcard &&
-                      <Card.Text>
+                      <Card.Text style={{fontSize:"1.25rem"}}>
                         {back}
                       </Card.Text>}
-                    </Card.Body>
+
                     {isNew && <Form>
                         <Form.Group controlId="Front">
                         <Form.Label>Flashcard Frontside</Form.Label>
@@ -220,6 +220,7 @@ class FlashcardManage extends Component {
                                 onChange={this.handleChange}/>
                             </Form.Group>
                         </Form>}
+                        </Card.Body>
                         </Container>
                     </Card>
                     {isNew && <Button variant="success" type="submit" style={{ marginTop: '30px' }} onClick={() => this.postFlashcard(this.state.form)}>Add Flashcard</Button>}

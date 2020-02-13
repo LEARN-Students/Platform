@@ -395,7 +395,7 @@ user_id: 1},
     {front: ":param",
     back: "Option overrides the default resource identifier :id (name of the dynamic segment used to generate the routes).",
     source: "https://guides.rubyonrails.org/routing.html#using-as-in-nested-resources",
-    subject: "Rails (Basics) (Basics",
+    subject: "Rails (Basics)",
     user_id: 1},
 
 # React (Basics) Flashcard List
