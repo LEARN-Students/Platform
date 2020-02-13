@@ -26,13 +26,14 @@ describe('FlashcardManage', () => {
             )
         })
         const wrapper = shallow(<FlashcardManage />)
-        const mockFlashcard = {id: 2, front: 'Test', back: 'Back of Test', source: 'Source of Test', subject: 'myList', user_id: 1}
-        const expected = [{id: 1, front: 'Test', back: 'Back of Test', source: 'Source of Test', subject: 'myList', user_id: 1}, mockFlashcard]
+        const mockFlashcard = {id: 2, front: 'Test', back: 'Back of Test', source: 'Source of Test', subject: 'My List', user_id: 1}
+        const expected = [{id: 1, front: 'Test', back: 'Back of Test', source: 'Source of Test', subject: 'My List', user_id: 1}, mockFlashcard]
+
 
         await wrapper.instance().postFlashcard(mockFlashcard)
 
         expect(postFlashcards).toHaveBeenCalledWith(mockFlashcard)
-        expect(wrapper.state('myList')).toEqual(expected)
+        expect(wrapper.state('My List')).toEqual(expected)
     })
     //when the deleteFlashcard method has been added to FlashcardMangage
 })

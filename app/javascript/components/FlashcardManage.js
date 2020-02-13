@@ -16,8 +16,7 @@ class FlashcardManage extends Component {
                 front: 'New Flashcard',
                 back: 'Backside',
                 source: 'Optional Source URL',
-                subject: 'My List',
-                user_id: this.props.current_user.id,
+                subject: 'My List'
             },
         }
     }

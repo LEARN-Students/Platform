@@ -25,7 +25,7 @@ class FlashcardsController < ApplicationController
   # POST /flashcards
   # POST /flashcards.json
   def create
-      @flashcard = Flashcard.create(flashcard_params)
+      @flashcard = current_user.flashcards.create(flashcard_params)
         if @flashcard.valid?
             render json: @flashcard
         else
@@ -36,7 +36,7 @@ class FlashcardsController < ApplicationController
   # PATCH/PUT /flashcards/1
   # PATCH/PUT /flashcards/1.json
   def update
-      @flashcard = Flashcard.find(params[:id])
+      @flashcard = current_user.flashcards.find(params[:id])
       @flashcard.update(flashcard_params)
         if @flashcard.valid?
             render json: @flashcard
