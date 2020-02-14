@@ -7,6 +7,7 @@ import About from "./About"
 import Flashcard from "./Flashcard"
 import FlashcardManage from "./FlashcardManage"
 import "bootswatch/dist/lumen/bootstrap.min.css";
+import Logo from 'images/learn_students_logo.png'
 // import ReactCardFlip from 'react-card-flip';
 
 
@@ -28,7 +29,7 @@ class App extends React.Component {
         <Navbar style={{ marginBottom: "4em", fontSize:"1.25rem"}} bg="light" expand="lg" >
           <Navbar.Brand href="/"><Image
           style={{ height: "4em" }}
-          src="../assets/learn_students_logo.png"
+          src={Logo}
           alt="Learn Students Logo"
           /></Navbar.Brand>
               <Nav.Link href="/">Home</Nav.Link>
