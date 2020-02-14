@@ -29,11 +29,11 @@ RSpec.describe FlashcardsController, type: :controller do
   # Flashcard. As you add validations to Flashcard, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    skip(front: "Front of Flashcard", back: "Back of Flashcard", subject: "My List", source: "Url for the Flashcard", user_id: 1)
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    skip(front: "Front of Flashcard", back: "Back of Flashcard", subject: "My List")
   }
 
   # This should return the minimal set of values that should be in the session
@@ -57,12 +57,6 @@ RSpec.describe FlashcardsController, type: :controller do
     end
   end
 
-  # describe "GET #new" do
-  #   it "returns a success response" do
-  #     get :new, params: {}, session: valid_session
-  #     expect(response).to be_successful
-  #   end
-  # end
 
   describe "GET #edit" do
     it "returns a success response" do
