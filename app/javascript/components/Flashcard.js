@@ -16,7 +16,7 @@ class Flashcard extends Component {
             isFlipped: true,
             subjectBooleans: {}
         }
-    this.flipCard = this.flipCard.bind(this);
+    // this.flipCard = this.flipCard.bind(this);
     }
 
     componentDidMount = () => {
@@ -95,7 +95,7 @@ class Flashcard extends Component {
 
     gotIt = () => {
         const { flashcards } = this.state
-        this.setState({flashcards: flashcards.slice(1)})
+        this.setState({flashcards: flashcards.slice(1), isFlipped: true})
     }
 
     keepStudying = () => {
@@ -137,7 +137,7 @@ class Flashcard extends Component {
                 <Row>
                     <Col sm={4}>
                         <Card>
-                          <Card.Header as="h5">Subjects</Card.Header>
+                          <Card.Header style={{fontSize:"2rem"}}>Subjects</Card.Header>
                           <Card.Body>
                             <Card.Text>
                             <Form>
@@ -146,13 +146,13 @@ class Flashcard extends Component {
                                     <Row>
                                     <Col xs={10}>
                                     <Form.Check
-                                    style={{ marginBottom:".5rem" }}
+                                    style={{ marginBottom:".5rem", fontSize:"1.25rem" }}
                                     type="checkbox"
                                     label={subject}
                                     onClick={() => {this.checkbox(subject)}}
                                     />
                                     </Col>
-                                    <Col style={{display:"flex", justifyContent:"flex-end" }}>
+                                    <Col style={{display:"flex", justifyContent:"flex-end", fontSize:"1rem" }}>
                                     {flashcardArrays[subject].length}
                                     </Col>
                                     </Row>
@@ -167,36 +167,36 @@ class Flashcard extends Component {
                     </Col>
                     <Col sm={8}>
                     {flashcards.length > 0 &&<h4 style={{display:"flex", justifyContent:"center"}}>1 / {flashcards.length}</h4>}
-                    {flashcards.length == 0 && <Card style={{ width: '100%' }}>
+                    {flashcards.length == 0 && <Card style={{ width: "100%" }}>
                         <Card.Body>
-                        <Card.Title>Get Started:</Card.Title>
-                        <Card.Text>
+                        <Card.Title style={{fontSize:"2rem"}}>Get Started:</Card.Title>
+                        <Card.Text style={{fontSize:"1.25rem"}}>
                             Please check one or more of the subjects to the left and click begin to start studying! Alternatively, you can curate your own set of flashcards by clicking the "Manage My List" button on the left.
                         </Card.Text>
                         </Card.Body>
                         </Card>}
                     {flashcards.length > 0 &&
-                        <ReactCardFlip isFlipped={isFlipped} infinite={true} flipDirection="horizontal">
+                        <ReactCardFlip isFlipped={isFlipped} infinite={true} flipDirection="horizontal" flipSpeedBackToFront={.2} flipSpeedFrontToBack={.2}>
                         <Container>
                             <Card style={{ width: "100%", height:"40vH"}} onClick={ this.flipCard}>
-                            <Card.Body>
-                            <Card.Text style={{fontSize:"2rem"}}>{flashcards[0].front}</Card.Text>
+                            <Card.Body style={{display:"flex", justifyContent:"space-between", flexDirection:"column"}}>
+                            <Card.Text style={{fontSize:"3.5rem", display:"flex", justifyContent:"center"}}>{flashcards[0].front}</Card.Text>
                             <Row>
                                 <Col><Button variant="primary" onClick={() => {window.open(flashcards[0].source)}}>Source</Button></Col>
-                                <Col><Card.Text style={{display:"flex", justifyContent:"flex-end"}} > {flashcards[0].subject}</Card.Text></Col>
+                                <Col><Card.Text style={{display:"flex", justifyContent:"flex-end", fontSize:"1.5em"}} > {flashcards[0].subject}</Card.Text></Col>
                                 </Row>
                             </Card.Body>
                             </Card>
                             </Container>
                             <Container>
-                            <Card style={{ width: "100%", height:"40vH" }} onClick={ this.flipCard}>
-                            <Card.Body>
+                            <Card style={{ width: "100%", height:"40vH"}} onClick={ this.flipCard}>
+                            <Card.Body style={{display:"flex", justifyContent:"space-between", flexDirection:"column"}}>
                             <Card.Text style={{fontSize:"2rem"}}>{flashcards[0].back}</Card.Text>
                             <Row><Col>
                                 <Button variant="primary" onClick={() => {window.open(flashcards[0].source)}}>Source</Button>
                                 </Col>
                                 <Col>
-                                    <Card.Text style={{display:"flex", justifyContent:"flex-end"}} > {flashcards[0].subject}</Card.Text>
+                                    <Card.Text style={{display:"flex", justifyContent:"flex-end", fontSize:"1.5em"}} > {flashcards[0].subject}</Card.Text>
                                 </Col></Row>
                             </Card.Body>
                             </Card>
