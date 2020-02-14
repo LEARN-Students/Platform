@@ -38,13 +38,28 @@ class Flashcard extends Component {
                 var newSubjectArray = [...new Set(flashcardsArray.map(flashcard => flashcard.subject))]
                 //for each subject create an array of subjects that correspond to that subject.
                 newSubjectArray.forEach(flashcardSubject => {
-                    let flashcardArray = flashcardsArray.filter(flashcard => flashcard.subject === flashcardSubject)
+                    if (flashcardSubject === "My List" ) {
+                        let flashcardArray = flashcardsArray.filter(flashcard =>
+                            flashcard.user_id === this.props.current_user.id)
+                        object[flashcardSubject] = flashcardArray
+                    }
+                    else {
+                        let flashcardArray = flashcardsArray.filter(flashcard => flashcard.subject === flashcardSubject)
+                        object[flashcardSubject] = flashcardArray
+                    }
                     //Create a new key in our objects of the subjects and set a value to that key to the flashcard array created above.
-                    object[flashcardSubject] = flashcardArray
+                    // object[flashcardSubject] = flashcardArray
             })
                 this.setState({flashcardArrays: object})
                 return flashcardsArray
-        })
+            })
+            // .then((flashcardsArray) => {
+            //     var array = flashcardsArray.filter(flashcard => flashcard.user_id === this.props.current_user.id)
+            //     var newObject = this.state.flashcardArrays
+            //     newObject['My List'] = array
+            //     this.setState({ flashcardArrays: newObject })
+            //     return flashcardsArray
+            // })
             .then((flashcardsArray) => {
                 //setting the variable of objects as an empty object
                 var object = {}
@@ -59,7 +74,10 @@ class Flashcard extends Component {
             .catch((error)=>{
                 this.setState({ error: `Error: ${error.message}`})
             })
+
     }
+
+
 
     shuffle = (array) => {
         // Simple solution to creating a random-like array
@@ -182,7 +200,11 @@ class Flashcard extends Component {
                             <Card.Body style={{display:"flex", justifyContent:"space-between", flexDirection:"column"}}>
                             <Card.Text style={{fontSize:"3.5rem", display:"flex", justifyContent:"center"}}>{flashcards[0].front}</Card.Text>
                             <Row>
-                                <Col><Button variant="primary" onClick={() => {window.open(flashcards[0].source)}}>Source</Button></Col>
+                                <Col>
+                                {flashcards[0].source !== "" &&
+                                <Button variant="primary" onClick={() => {window.open(flashcards[0].source)}}>Source
+                                </Button>}
+                                </Col>
                                 <Col><Card.Text style={{display:"flex", justifyContent:"flex-end", fontSize:"1.5em"}} > {flashcards[0].subject}</Card.Text></Col>
                                 </Row>
                             </Card.Body>
