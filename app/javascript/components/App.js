@@ -39,9 +39,11 @@ class App extends React.Component {
               {!logged_in &&<Nav.Link href = "/users/sign_up" > Sign Up </Nav.Link>}
         </Navbar>
         <Switch>
-            <Route exact path="/flashcards" component={ Flashcard } />
+            <Route exact path="/flashcards"
+                   render={props => (<Flashcard {...props}
+                   current_user={current_user}/>)}/>
             <Route exact path="/flashcards/manage"
-                   render={props => (<FlashcardManage{...props} current_user={current_user}/>)}/>
+                   render={props => (<FlashcardManage {...props} current_user={current_user}/>)}/>
             <Route exact path="/about" component={ About } />
             <Route exact path="/" render={props => (<Home {...props} logged_in={logged_in}/>)}/>
         </Switch>
