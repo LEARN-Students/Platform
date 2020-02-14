@@ -7,16 +7,14 @@ import About from "./About"
 import Flashcard from "./Flashcard"
 import FlashcardManage from "./FlashcardManage"
 import "bootswatch/dist/lumen/bootstrap.min.css";
+// import ReactCardFlip from 'react-card-flip';
 
 
 class App extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-
-        }
-
     }
+
     render () {
         const {
           logged_in,
@@ -27,7 +25,7 @@ class App extends React.Component {
 
     return (
       <Router>
-        <Navbar style={{ marginBottom: "4em" }} bg="light" expand="lg" >
+        <Navbar style={{ marginBottom: "4em", fontSize:"1.25rem"}} bg="light" expand="lg" >
           <Navbar.Brand href="/"><Image
           style={{ height: "4em" }}
           src="../assets/learn_students_logo.png"
@@ -42,9 +40,10 @@ class App extends React.Component {
         </Navbar>
         <Switch>
             <Route exact path="/flashcards" component={ Flashcard } />
-            <Route exact path="/flashcards/manage" component={ FlashcardManage } current_user={current_user}/>
+            <Route exact path="/flashcards/manage"
+                   render={props => (<FlashcardManage{...props} current_user={current_user}/>)}/>
             <Route exact path="/about" component={ About } />
-            <Route exact path="/" render={props => (<Home {...props}/>)}/>
+            <Route exact path="/" render={props => (<Home {...props} logged_in={logged_in}/>)}/>
         </Switch>
       </Router>
     );

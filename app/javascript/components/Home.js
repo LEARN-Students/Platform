@@ -12,22 +12,23 @@ class Home extends Component {
         } = this.props
         return(
             <Container >
-                <Row>
+                <Row style={{alignItems:"center"}}>
                     <Col xs={8}>
                         <header>
-                            <h1>Hello!</h1>
+                            <h1 style={{fontSize:"4em"}}>Hello!</h1>
                         </header>
-                        <p>Welcome to our webpage, be sure to check out the flashcards and hit the button below to get started!</p>
-                        {logged_in && <Link to = "/flashcards">
+                        <p style={{fontSize:"2em"}}>Welcome to our webpage, be sure to check out the flashcards and hit the button below to get started!</p>
+                        {logged_in && <a href= "/flashcards">
                         <Button variant="success">Get Started!</Button>
-                        </Link>}
+                        </a>}
                         {!logged_in && <a href= "/users/sign_in">
                         <Button variant="success">Get Started!</Button>
                         </a>}
                     </Col>
                     <Col xs={4}>
                         <Image
-                        src="../assets/learn-block-web.jpg"
+                        style={{width:"inherit"}}
+                        src="../assets/learnLogo.png"
                         alt="Learn Academy Logo"
                         />
                     </Col>

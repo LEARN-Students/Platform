@@ -2,63 +2,60 @@ import React, { Component } from "react"
 import { Button, Card, Form, Container, Col, Row } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import { getFlashcards } from './apiCalls.js'
+import ReactCardFlip from 'react-card-flip'
 
 class Flashcard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            subjects: ["Javascript (Basics)", "Javascript (Adv.)", "Javascript Methods", "Ruby (Basics)", "Ruby (Adv.)", "Ruby Methods", "React (Basics)", "Rails (Basics)"],
+            subjects: [],
+            flashcardArrays: {},
             flashcards: [],
             error: "",
             // true boolean represents front, false boolean represents back
-            flashcardSide: true,
-            js: false,
-            jsFC:[],
-            jsAdv: false,
-            jsAdvFC:[],
-            jsMethods: false,
-            jsMethodsFC:[],
-            ruby: false,
-            rubyFC:[],
-            rubyAdv: false,
-            rubyAdvFC:[],
-            rubyMethods: false,
-            rubyMethodsFC:[],
-            react:false,
-            reactFC:[],
-            rails:false,
-            railsFC:[],
-            myList:false,
-            myListFC:[],
+            isFlipped: true,
+            subjectBooleans: {}
         }
+    // this.flipCard = this.flipCard.bind(this);
     }
 
     componentDidMount = () => {
     // function will need to fetch data from our JSON API
     // we should seperate the data by subject so we can xport just what me need
+        const { subjects, flashcardArrays } = this.state
         getFlashcards()
             .then((flashcardsArray) => {
-                let subjects = [...new Set(flashcardsArray.map(item => item.subject))];
-                this.setState({subjects:subjects})
-                let js = flashcardsArray.filter(fc => fc.subject === "Javascript (Basics)")
-                this.setState({jsFC: js})
-                let jsAdv = flashcardsArray.filter(fc => fc.subject === "Javascript (Adv.)")
-                this.setState({jsAdvFC: jsAdv})
-                let jsMethods = flashcardsArray.filter(fc => fc.subject === "Javascript Methods")
-                this.setState({jsMethodsFC: jsMethods})
-                let ruby = flashcardsArray.filter(fc => fc.subject === "Ruby (Basics)")
-                this.setState({rubyFC: ruby})
-                let rubyAdv = flashcardsArray.filter(fc => fc.subject === "Ruby (Adv.)")
-                this.setState({rubyAdvFC: rubyAdv})
-                let rubyMethods = flashcardsArray.filter(fc => fc.subject === "Ruby Methods")
-                this.setState({rubyMethodsFC: rubyMethods})
-                let react = flashcardsArray.filter(fc => fc.subject === "React (Basics)")
-                this.setState({reactFC: react})
-                let rails = flashcardsArray.filter(fc => fc.subject === "Rails (Basics)")
-                this.setState({railsFC: rails})
-                let myList = flashcardsArray.filter(fc => fc.subject === "My List")
-                this.setState({myListFC: myList})
+                //mapping through all flashcards and return an array of all flashcard subjects then getting a set from them (a set is a list/array of unique values).
+                var newSubjectArray = [...new Set(flashcardsArray.map(flashcard => flashcard.subject))]
+                //Then you set that to subjects in state.
+                this.setState({subjects: newSubjectArray})
+                return flashcardsArray
             })
+            .then((flashcardsArray) => {
+                //setting the variable of objects as an empty object
+                var object = {}
+                //mapping through all flashcards and return an array of all flashcard subjects then getting a set from them (a set is a list/array of unique values).
+                var newSubjectArray = [...new Set(flashcardsArray.map(flashcard => flashcard.subject))]
+                //for each subject create an array of subjects that correspond to that subject.
+                newSubjectArray.forEach(flashcardSubject => {
+                    let flashcardArray = flashcardsArray.filter(flashcard => flashcard.subject === flashcardSubject)
+                    //Create a new key in our objects of the subjects and set a value to that key to the flashcard array created above.
+                    object[flashcardSubject] = flashcardArray
+            })
+                this.setState({flashcardArrays: object})
+                return flashcardsArray
+        })
+            .then((flashcardsArray) => {
+                //setting the variable of objects as an empty object
+                var object = {}
+                //mapping through all flashcards and return an array of all flashcard subjects then getting a set from them (a set is a list/array of unique values).
+                var newSubjectArray = [...new Set(flashcardsArray.map(flashcard => flashcard.subject))]
+                newSubjectArray.forEach(flashcardSubject => {
+                    //Create a new key in our objects of the subjects and set a value to false.
+                    object[flashcardSubject] = false
+            })
+                this.setState({subjectBooleans: object})
+        })
             .catch((error)=>{
                 this.setState({ error: `Error: ${error.message}`})
             })
@@ -74,39 +71,31 @@ class Flashcard extends Component {
 
     flashcardAggregator = () => {
         // Destructuring our variables
-        let { flashcards,
-            js, jsFC,
-            jsAdv, jsAdvFC,
-            jsMethods, jsMethodsFC,
-            ruby, rubyFC,
-            rubyAdv, rubyAdvFC,
-            rubyMethods, rubyMethodsFC,
-            react, reactFC,
-            rails, railsFC,
-            myList, myListFC
-        } = this.state
+        let { flashcards, flashcardArrays, subjectBooleans } = this.state
         // Setting a new array to aggregate the active flashcards
         let aggArray = []
         // Reset the state of flashcards to empty
         this.setState({flashcards: aggArray})
-        // Checks if the user has checked the box (boolean true/false)
-        // & puts the flashcards from the lists in state into the empty array
-        // if the value of javascript stored in state is true
-        if(js){jsFC.map(flashcard => aggArray.push(flashcard))}
-        if(jsAdv){jsAdvFC.map(flashcard => aggArray.push(flashcard))}
-        if(jsMethods){jsMethodsFC.map(flashcard => aggArray.push(flashcard))}
-        if(ruby){rubyFC.map(flashcard => aggArray.push(flashcard))}
-        if(rubyAdv){rubyAdvFC.map(flashcard => aggArray.push(flashcard))}
-        if(rubyMethods){rubyMethodsFC.map(flashcard => aggArray.push(flashcard))}
-        if(react){reactFC.map(flashcard => aggArray.push(flashcard))}
-        if(rails){railsFC.map(flashcard => aggArray.push(flashcard))}
-        if(myList){myListFC.map(flashcard => aggArray.push(flashcard))}
+        //Creating a variable with an empty array
+        var checkedSubjects = []
+        //iterating through subjectBooleans object, for each subject if the subjectBoolean key of subject is true, then push the subject into the checkedSubjects array
+        for(var subject in subjectBooleans) {
+            if(subjectBooleans[subject]) {
+                checkedSubjects.push(subject)
+            }
+        }
+        //iterate through flashcardArrays for each subject, if subject is included in the checkedSubjects array then for each flashcard in the flashcardArrays[subject] array push to our aggregator array
+        for(var subject in flashcardArrays) {
+            if(checkedSubjects.includes(subject)) {
+                flashcardArrays[subject].forEach(flashcard => aggArray.push(flashcard))
+            }
+        }
         this.shuffle(aggArray)
     }
 
     gotIt = () => {
         const { flashcards } = this.state
-        this.setState({flashcards: flashcards.slice(1)})
+        this.setState({flashcards: flashcards.slice(1), isFlipped: true})
     }
 
     keepStudying = () => {
@@ -117,99 +106,57 @@ class Flashcard extends Component {
         this.setState({flashcards: array})
     }
 
-    // for use when we map through our subjects object to make checkboxes
+    //Provides checkbox functionality
     checkbox = (subject) => {
-        console.log(subject);
+        //destructuring subjectBooleans form state
+        const { subjectBooleans } = this.state
+        //setting newObject to the value of subjectBooleans
+        var newObject = subjectBooleans
+        //Finding the value of the key in the subjectBoolean object of the subject we passed in and setting it to the variable value
+        var value = subjectBooleans[subject]
+        //Set the key in the subjectBoolean of the subject we passed in to the opposite of the variable value
+        newObject[subject] = !value
+        //Setting subjectBoolean to the newly created object
+        this.setState({subjectBooleans: newObject})
+        // console.log(subjectBooleans);
+        // console.log(this.state.flashcardArrays);
+    }
+
+    flipCard = (e) => {
+        const { isFlipped } = this.state
+        e.preventDefault()
+        this.setState({isFlipped: !isFlipped})
     }
 
     render(){
-        let { flashcards, subjects,
-            error, flashcardSide,
-            js, jsFC,
-            jsAdv, jsAdvFC,
-            jsMethods, jsMethodsFC,
-            ruby, rubyFC,
-            rubyAdv, rubyAdvFC,
-            rubyMethods, rubyMethodsFC,
-            react, reactFC,
-            rails, railsFC,
-            myList, myListFC
+        const { flashcards, subjects,
+            error, isFlipped, flashcardArrays
         } = this.state
         return(
             <Container>
-                <header>
-                    <h1 style={{ marginBottom:"4rem" }}>Flashcards</h1>
-                </header>
                 <Row>
                     <Col sm={4}>
                         <Card>
-                          <Card.Header as="h5">Subjects</Card.Header>
+                          <Card.Header style={{fontSize:"2rem"}}>Subjects</Card.Header>
                           <Card.Body>
                             <Card.Text>
                             <Form>
-                            {/*}{subjects.map(subject => {
+                            {Object.keys(flashcardArrays).map(subject => {
                                 return(
+                                    <Row>
+                                    <Col xs={10}>
                                     <Form.Check
-                                    style={{ marginBottom:".5rem" }}
+                                    style={{ marginBottom:".5rem", fontSize:"1.25rem" }}
                                     type="checkbox"
                                     label={subject}
                                     onClick={() => {this.checkbox(subject)}}
                                     />
-                            )})}*/}
-                                <Form.Check
-                                style={{ marginBottom:".5rem" }}
-                                type="checkbox"
-                                label="Javascript (Basics)"
-                                onClick={() => {this.setState({js:!js})}}
-                                />
-                                <Form.Check
-                                style={{ marginBottom:".5rem" }}
-                                type="checkbox"
-                                label="Javascript (Adv.)"
-                                onClick={() => {this.setState({jsAdv:!jsAdv})}}
-                                />
-                                <Form.Check
-                                style={{ marginBottom:".5rem" }}
-                                type="checkbox"
-                                label="Javascript Methods"
-                                onClick={() => {this.setState({jsMethods:!jsMethods})}}
-                                />
-                                <Form.Check
-                                style={{ marginBottom:".5rem" }}
-                                type="checkbox"
-                                label="Ruby (Basics)"
-                                onClick={() => {this.setState({ruby:!ruby})}}
-                                />
-                                <Form.Check
-                                style={{ marginBottom:".5rem" }}
-                                type="checkbox"
-                                label="Ruby (Adv.)"
-                                onClick={() => {this.setState({rubyAdv:!rubyAdv})}}
-                                />
-                                <Form.Check
-                                style={{ marginBottom:".5rem" }}
-                                type="checkbox"
-                                label="Ruby Methods"
-                                onClick={() => {this.setState({rubyMethods:!rubyMethods})}}
-                                />
-                                <Form.Check
-                                style={{ marginBottom:".5rem" }}
-                                type="checkbox"
-                                label="React (Basics)"
-                                onClick={() => {this.setState({react:!react})}}
-                                />
-                                <Form.Check
-                                style={{ marginBottom:".5rem" }}
-                                type="checkbox"
-                                label="Rails (Basics)"
-                                onClick={() => {this.setState({rails:!rails})}}
-                                />
-                                <Form.Check
-                                style={{ marginBottom:".5rem" }}
-                                type="checkbox"
-                                label="My List"
-                                onClick={() => {this.setState({myList:!myList})}}
-                                />
+                                    </Col>
+                                    <Col style={{display:"flex", justifyContent:"flex-end", fontSize:"1rem" }}>
+                                    {flashcardArrays[subject].length}
+                                    </Col>
+                                    </Row>
+                            )})}
                             </Form>
                             </Card.Text>
                             <Link to="/flashcards/manage">
@@ -220,34 +167,45 @@ class Flashcard extends Component {
                     </Col>
                     <Col sm={8}>
                     {flashcards.length > 0 &&<h4 style={{display:"flex", justifyContent:"center"}}>1 / {flashcards.length}</h4>}
-                    <Card style={{ width: '100%' }}>
-                      <Card.Body>
-                        {/*if there are no flashcards in the array*/}
-                        {flashcards.length == 0 && <Card.Title>How to:</Card.Title>}
-                        {flashcards.length == 0 && <Card.Text>
-                          Some quick example text to build on the card title and make up the bulk of
-                          the card's content.
-                        </Card.Text>}
-                        {flashcards.length > 0 && <Card.Title>{flashcards[0].front}</Card.Title>}
-                        {flashcards.length > 0 && <Card.Text>
-                         {flashcards[0].back}
-                        </Card.Text>}
-                            <Row>
-                                <Col>
-                                {flashcards.length > 0 && <Button variant="primary" onClick={() => {window.open(flashcards[0].source)}}>Source</Button>}
-                                </Col>
-                                <Col>
-                                {flashcards.length > 0 && <Card.Text style={{display:"flex", justifyContent:"flex-end"}} > {flashcards[0].subject}</Card.Text>}
-                                </Col>
-                            </Row>
+                    {flashcards.length == 0 && <Card style={{ width: "100%" }}>
+                        <Card.Body>
+                        <Card.Title style={{fontSize:"2rem"}}>Get Started:</Card.Title>
+                        <Card.Text style={{fontSize:"1.25rem"}}>
+                            Please check one or more of the subjects to the left and click begin to start studying! Alternatively, you can curate your own set of flashcards by clicking the "Manage My List" button on the left.
+                        </Card.Text>
                         </Card.Body>
-                    </Card>
-                        <Row style={{ justifyContent:"space-between", padding: "1.25rem"}}>
-                            {flashcards.length == 0 && <Button variant="primary" onClick={() => {this.flashcardAggregator()}}>Begin</Button>}
-                            {flashcards.length > 0 && <Button variant="warning" onClick={() => {this.keepStudying()}}>Keep Studying</Button>}
-                            {flashcards.length > 0 && <Button variant="primary" onClick={() => {this.flashcardAggregator()}}>Reset</Button>}
-                            {flashcards.length > 0 && <Button variant="success" onClick={() => {this.gotIt()}}>Got It!</Button>}
-                        </Row>
+                        </Card>}
+                    {flashcards.length > 0 &&
+                        <ReactCardFlip isFlipped={isFlipped} infinite={true} flipDirection="horizontal" flipSpeedBackToFront={.2} flipSpeedFrontToBack={.2}>
+                        <Container>
+                            <Card style={{ width: "100%", height:"40vH"}} onClick={ this.flipCard}>
+                            <Card.Body style={{display:"flex", justifyContent:"space-between", flexDirection:"column"}}>
+                            <Card.Text style={{fontSize:"3.5rem", display:"flex", justifyContent:"center"}}>{flashcards[0].front}</Card.Text>
+                            <Row>
+                                <Col><Button variant="primary" onClick={() => {window.open(flashcards[0].source)}}>Source</Button></Col>
+                                <Col><Card.Text style={{display:"flex", justifyContent:"flex-end", fontSize:"1.5em"}} > {flashcards[0].subject}</Card.Text></Col>
+                                </Row>
+                            </Card.Body>
+                            </Card>
+                            </Container>
+                            <Container>
+                            <Card style={{ width: "100%", height:"40vH"}} onClick={ this.flipCard}>
+                            <Card.Body style={{display:"flex", justifyContent:"space-between", flexDirection:"column"}}>
+                            <Card.Text style={{fontSize:"2rem"}}>{flashcards[0].back}</Card.Text>
+                            <Row><Col>
+                                <Button variant="primary" onClick={() => {window.open(flashcards[0].source)}}>Source</Button>
+                                </Col>
+                                <Col>
+                                    <Card.Text style={{display:"flex", justifyContent:"flex-end", fontSize:"1.5em"}} > {flashcards[0].subject}</Card.Text>
+                                </Col></Row>
+                            </Card.Body>
+                            </Card>
+                            </Container>
+                        </ReactCardFlip>}
+                        {flashcards.length == 0 && <Row style={{ justifyContent:"space-between", padding: "1.25rem"}}><Button variant="primary" onClick={() => {this.flashcardAggregator()}}>Begin</Button></Row>}
+                        {flashcards.length > 0 && <Row style={{ justifyContent:"space-between", padding: "1.25rem"}}> <Button variant="warning" onClick={() => {this.keepStudying()}}>Keep Studying</Button>
+                        <Button variant="primary" onClick={() => {this.flashcardAggregator()}}>Reset</Button>
+                        <Button variant="success" onClick={() => {this.gotIt()}}>Got It!</Button></Row>}
                     </Col>
                 </Row>
             </Container>
@@ -256,5 +214,3 @@ class Flashcard extends Component {
 }
 
 export default Flashcard
-//
-// style={{display:"flex", justifyContent:"flex-end"}}
