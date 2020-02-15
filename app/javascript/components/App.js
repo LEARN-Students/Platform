@@ -6,7 +6,7 @@ import Home from "./Home"
 import About from "./About"
 import Flashcard from "./Flashcard"
 import FlashcardManage from "./FlashcardManage"
-import "bootswatch/dist/lumen/bootstrap.min.css";
+import "stylesheets/bootstrap.min.css";
 import Logo from 'images/learn_students_logo.png'
 
 // import ReactCardFlip from 'react-card-flip';
