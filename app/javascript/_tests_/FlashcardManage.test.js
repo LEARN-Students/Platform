@@ -4,6 +4,7 @@ import Enzyme, { shallow } from 'enzyme'
 import FlashcardManage from '../components/FlashcardManage'
 import Adapter from 'enzyme-adapter-react-16';
 
+
 Enzyme.configure({ adapter: new Adapter() })
 
 jest.mock('../components/apiCalls.js')
