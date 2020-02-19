@@ -1,6 +1,8 @@
 import React, { Component } from "react"
 import { Button, Card, Form, Container, Col, Row, Image, OverlayTrigger, Popover } from "react-bootstrap"
 import { getMyFlashcards, postFlashcards, deleteFlashcards, editFlashcards } from './apiCalls.js'
+import Trash from 'images/trash32.png'
+import Cog from 'images/cog32.png'
 
 class FlashcardManage extends Component {
     constructor(props) {
@@ -124,7 +126,7 @@ class FlashcardManage extends Component {
                             <Form.Group as={Row} key={flashcard.front+i}>
                             <Col xs={9}><Form.Label>{flashcard.front.substr(0,29)}</Form.Label></Col>
                             <Col style={{display:"flex", justifyContent:"flex-end"}}>
-                            <Image  src="../assets/cog32.png"
+                            <Image  src={Cog}
                                     style={{height:"1rem", marginRight:".4rem"}}
                                     onClick={() => this.grabFlashcard(flashcard)}/>
                             <OverlayTrigger
@@ -146,7 +148,7 @@ class FlashcardManage extends Component {
                                     </Popover>
                                   }
                                 >
-                                <Image src="../assets/trash32.png" style={{height:"1rem"}}/>
+                                <Image src={Trash} style={{height:"1rem"}}/>
                             </OverlayTrigger>
 
                             </Col>

@@ -1,8 +1,9 @@
 import React from 'react';
-import { getFlashcards, getMyFlashcards, postFlashcards } from '../components/apiCalls'
+import { getFlashcards, getMyFlashcards, postFlashcards, deleteFlashcards, editFlashcards } from '../components/apiCalls'
 import Enzyme, { shallow } from 'enzyme'
 import FlashcardManage from '../components/FlashcardManage'
 import Adapter from 'enzyme-adapter-react-16';
+
 
 Enzyme.configure({ adapter: new Adapter() })
 
@@ -15,28 +16,63 @@ describe('FlashcardManage', () => {
         })
     })
     it('should retrieve a list of my flashcards after mounting', () => {
-        shallow(<FlashcardManage />)
+        let props = {
+        current_user: { id: 1 }
+        }
+        shallow(<FlashcardManage {...props}/>)
         expect(getMyFlashcards).toHaveBeenCalled()
     })
     // when the addFlashcard method has been added to FlashcardMangage
-    it('should update state with a new flashcard when addFlashcard is called', async () => {
+    it('should update state when podtFlashcard is called', async () => {
         let props = {
         current_user: { id: 1 }
         }
         postFlashcards.mockImplementation(() => {
             return Promise.resolve(
-                {id: 2, front: 'Test', back: 'Back of Test', source: 'Source of Test', subject: 'My List', user_id: 1}
+                {}
             )
         })
         const wrapper = shallow(<FlashcardManage {...props}/>)
-        const mockFlashcard = {id: 2, front: 'Test', back: 'Back of Test', source: 'Source of Test', subject: 'My List', user_id: 1}
-        const expected = [{id: 1, front: 'Test', back: 'Back of Test', source: 'Source of Test', subject: 'My List', user_id: 1}, mockFlashcard]
-
+        const mockFlashcard = {id:1, front: 'Test', back: 'Back of Test', source: 'Source of Test', subject: 'My List', user_id: 1}
 
         await wrapper.instance().postFlashcard(mockFlashcard)
 
         expect(postFlashcards).toHaveBeenCalledWith(mockFlashcard)
-        expect(wrapper.state('My List')).toEqual(expected)
+        expect(getMyFlashcards).toHaveBeenCalledTimes(2)
+        // this gets called on initial componentDidMount and when a new card is created.
     })
-    // when the deleteFlashcard method has been added to FlashcardMangage
+    it('should update state when deleteFlashcard is called', async () => {
+        let props = {
+        current_user: { id: 1 }
+        }
+        deleteFlashcards.mockImplementation(() => {
+            return Promise.resolve(
+                {}
+            )
+        })
+        const wrapper = shallow(<FlashcardManage {...props}/>)
+        const mockFlashcard = {id:1, front: 'Test', back: 'Back of Test', source: 'Source of Test', subject: 'My List', user_id: 1}
+
+        await wrapper.instance().deleteFlashcard(mockFlashcard)
+
+        expect(deleteFlashcards).toHaveBeenCalledWith(mockFlashcard)
+        expect(getMyFlashcards).toHaveBeenCalledTimes(4)
+    })
+    it('should update state when editFlashcard is called', async () => {
+        let props = {
+        current_user: { id: 1 }
+        }
+        editFlashcards.mockImplementation(() => {
+            return Promise.resolve(
+                {}
+            )
+        })
+        const wrapper = shallow(<FlashcardManage {...props}/>)
+        const mockFlashcard = {id:1, front: 'Test', back: 'Back of Test', source: 'Source of Test', subject: 'My List', user_id: 1}
+
+        await wrapper.instance().editFlashcard(mockFlashcard)
+
+        expect(editFlashcards).toHaveBeenCalledWith(mockFlashcard)
+        expect(getMyFlashcards).toHaveBeenCalledTimes(5)
+    })
 })

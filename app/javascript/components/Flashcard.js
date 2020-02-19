@@ -178,7 +178,7 @@ class Flashcard extends Component {
                             </Form>
                             </Card.Text>
                             <Link to="/flashcards/manage">
-                              <Button variant = "primary"> Manage My List! </Button>
+                              <Button className="btn btn-primary"> Manage My List! </Button>
                             </Link>
                           </Card.Body>
                         </Card>
