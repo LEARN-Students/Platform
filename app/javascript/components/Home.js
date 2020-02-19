@@ -16,9 +16,11 @@ class Home extends Component {
                 <Row style={{alignItems:"center"}}>
                     <Col xs={8}>
                         <header>
-                            <h1 style={{fontSize:"4em"}}>Hello!</h1>
+                            <h1 style={{fontSize:"4em"}}>Hello World!</h1>
                         </header>
-                        <p style={{fontSize:"2em"}}>Welcome to our webpage, be sure to check out the flashcards and hit the button below to get started!</p>
+                        <br/>
+                        <p style={{fontSize:"2em"}}>The LEARN student platform is an open-source resource for learning programming built by LEARN students for LEARN students! <br/></p>
+                        <p style={{fontSize:"2em"}}>To learn more about contributing to the project, please visit our <a href="https://github.com/LEARN-Students/Platform">GitHub repo</a>. To get started developing programming mastery, click below!</p>
                         {logged_in && <a href= "/flashcards">
                         <Button variant="success">Get Started!</Button>
                         </a>}
