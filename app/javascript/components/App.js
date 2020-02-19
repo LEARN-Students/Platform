@@ -6,7 +6,7 @@ import Home from "./Home"
 import About from "./About"
 import Flashcard from "./Flashcard"
 import FlashcardManage from "./FlashcardManage"
-import "bootswatch/dist/lumen/bootstrap.min.css";
+// import "bootswatch/dist/lumen/bootstrap.min.css";
 // import ReactCardFlip from 'react-card-flip';
 
 
@@ -32,7 +32,8 @@ class App extends React.Component {
           alt="Learn Students Logo"
           /></Navbar.Brand>
               <Nav.Link href="/">Home</Nav.Link>
-              <Nav.Link href="/flashcards">Flashcards</Nav.Link>
+              {logged_in && <Nav.Link href="/flashcards">Flashcards</Nav.Link>}
+              {!logged_in && <Nav.Link href="/users/sign_up">Flashcards</Nav.Link>}
               <Nav.Link className="about" href="/about">About</Nav.Link>
               {logged_in && <Nav.Link href={sign_out_route}>Sign Out</Nav.Link>}
               {!logged_in && <Nav.Link href={sign_in_route}>Sign In</Nav.Link>}

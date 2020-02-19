@@ -23,12 +23,12 @@ p "Deleted #{flashcardCount} Flashcards"
 # Sets a default list of users to a user variable.
 # This default list ensures TestDrivenDevelopment@gmail.com has user id 1
 users = [
-    {email:"talentdrivendevelopment@gmail.com", provider:"seed", uid:1, password:"TalentDriven"},
-    {email:"123@gmail.com", provider:"seed", uid:999995, password:"123456"},
-    {email:"234@gmail.com", provider:"seed", uid:999996, password:"123456"},
-    {email:"345@gmail.com", provider:"seed", uid:999997, password:"123456"},
-    {email:"456@gmail.com", provider:"seed", uid:999998, password:"123456"},
-    {email:"567@gmail.com", provider:"seed", uid:999999, password:"123456"}]
+    {email:"talentdrivendevelopment@gmail.com", provider:"seed", uid:1, password:"TalentDriven1"},
+    {email:"123@gmail.com", provider:"seed", uid:999995, password:"Td123456"},
+    {email:"234@gmail.com", provider:"seed", uid:999996, password:"Td123456"},
+    {email:"345@gmail.com", provider:"seed", uid:999997, password:"Td123456"},
+    {email:"456@gmail.com", provider:"seed", uid:999998, password:"Td123456"},
+    {email:"567@gmail.com", provider:"seed", uid:999999, password:"Td123456"}]
 
 # For each user object in the users variable
 # we should try to create a new instance if they cannot be found in the database
