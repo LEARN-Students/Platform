@@ -39,48 +39,60 @@ p "Created #{User.count} Users"
 # Sets a default list of flashcards to a flashcards variable.
 # Each subsection represents a new default set of flashcards ordered by subject
 flashcards = [
-# Javascript (Basics)
-    {front: "Primitive Data Type",
-    back: "Data that has a primitive value: string, number, boolean, null, undefined",
-    source: "https://www.w3schools.com/js/js_object_definition.asp",
-    subject: "Javascript (Basics)"},
-    {front: "console.log()",
-    back: "Method to display data that's useful for debugging",
-    source: "https://www.w3schools.com/js/js_output.asp",
-    subject: "Javascript (Basics)"},
-    {front: "Statements",
-    back: "Are composed of: Values, Operators, Expressions, Keywords, and Comments",
-    source: "https://www.w3schools.com/js/js_statements.asp",
-    subject: "Javascript (Basics)"},
-    {front: "JavaScript (JS)",
-    back: "A programming language of HTML and the Web.",
-    source: "https://www.w3schools.com/js/default.asp",
-    subject: "Javascript (Basics)"},
-    {front: "Syntax",
-    back: "The set of rules, which defines two types of values: Fixed values (literals) and variable values (variables).",
-    source: "https://www.w3schools.com/js/js_syntax.asp",
-    subject: "Javascript (Basics)"},
-    {front: "Variables",
-    back: "Containers for storing data values.",
-    source: "https://www.w3schools.com/js/js_variables.asp",
-    subject: "Javascript (Basics)"},
-    {front: "Assignment",
-    back: "Operators assign values to the variables.",
-    source: "https://www.w3schools.com/js/js_assignment.asp",
-    subject: "Javascript (Basics)"},
-    {front: "Strings",
-    back: "Used for storing and manipulating text.",
-    source: "https://www.w3schools.com/js/js_strings.asp",
-    subject: "Javascript (Basics)"},
-    {front: "Objects",
-    back: "Containers for named values called properties or methods.",
-    source: "https://www.w3schools.com/js/js_objects.asp",
-    subject: "Javascript (Basics)"},
-    {front: "Function",
-    back: "A block of code designed to perform a particular task.",
-    source: "https://www.w3schools.com/js/js_functions.asp",
-    subject: "Javascript (Basics)"
-    },
+    # Javascript (Basics)
+    {subject: "Javascript (Basics)", front: "Primitive Data Type", back: "Data that has a primitive value: string, number, boolean, null, undefined", source: "https://www.w3schools.com/js/js_object_definition.asp"},
+
+    {subject: "Javascript (Basics)", front: "console.log()", back: "Method to display data that's useful for debugging", source: "https://www.w3schools.com/js/js_output.asp"},
+
+    {subject: "Javascript (Basics)", front: "Strings", back: "We can store words or other characters in JavaScript by surrounding characters with quotation marks", source: "https://www.w3schools.com/js/js_strings.asp"},
+
+    {subject: "Javascript (Basics)", front: "Concatenation vs. String Interpolation", back: "When we use the + on strings it combines the strings in a process called concatenation and when we use ` ${variableName} ` we can combine strings and variables in a process called string interpolation", source: "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals"},
+
+    {subject: "Javascript (Basics)",front: "Boolean", back: "Boolean expressions in JavaScript return true or false and even though true and false are words they are not strings, they represent the value of true/false", source: "https://www.w3schools.com/js/js_booleans.asp"},
+
+    {subject: "Javascript (Basics)",front: "Comparison Operator", back: "Comparison operators will return a Boolean value and these include ==, ===
+    ", source: "https://www.w3schools.com/js/js_operators.asp"},
+
+    {subject: "Javascript (Basics)", front: "Relational Operator", back: "Comparison operators will return a Boolean value and these include >, <, >=, <=
+    ", source: "https://www.w3schools.com/js/js_operators.asp"},
+
+    {subject: "Javascript (Basics)", front: "Logical Operator", back: "Logical operators can return any type of data but uses the principle of Boolean data type to determine the outcome and these include &&, ||, ! (not)
+    ", source: "https://www.w3schools.com/js/js_operators.asp"},
+
+    {subject: "Javascript (Basics)", front: "Undefined", back: "If a variable is created but not assigned a value, the variable is undefined", source: "https://www.w3schools.com/js/js_datatypes.asp"},
+
+    {subject: "Javascript (Basics)",front: "Null", back: "Null is equal to nothing else in your program but it is not zero or false", source: "https://www.w3schools.com/js/js_datatypes.asp"},
+
+    {subject: "Javascript (Basics)", front: "Symbol", back: "Symbol is a new data type created for the JS update ECMAScript 2015, symbols are unique and immutable, used for the key in a JS object", source: "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures"},
+
+    {subject: "Javascript (Basics)", front: "Type Coercion", back: "If we combine data from different types, JS tries to be helpful and make sense of the operation but can lead to odd behavior like false * 9 giving the output of 0", source: "https://developer.mozilla.org/en-US/docs/Glossary/Type_coercion"},
+
+    {subject: "Javascript (Basics)",front: "Variables", back: "Variables are used to store information and must be declared and assigned a value using a single equals sign", source: "https://www.w3schools.com/js/js_variables.asp"},
+
+    {subject: "Javascript (Basics)",front: "If/Else statement", back: "All conditionals must have an if statement and will run the code if any of the if statement or else if statements run true  else statement if all conditions are false", source: "https://www.w3schools.com/js/js_if_else.asp"},
+
+    {subject: "Javascript (Basics)", front: "Array Destructuring", back: "Array destructuring allows us to assign values from an array to variables", source: "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment"},
+
+    {subject: "Javascript (Basics)", front: "Accessor Methods", back: "Also known as getters - methods that access an array and do not change the original array", source: "https://www.w3schools.com/js/js_object_accessors.asp"},
+
+    {subject: "Javascript (Basics)", front: "Mutator Methods", back: "Also know as setters - methods that change the original array", source: "https://www.w3schools.com/js/js_object_accessors.asp"},
+
+    {subject: "Javascript (Basics)", front: "For Loop", back: "Allows you to iterate over items by defining the index start, amount of iterations, and what to do after each loop", source: "https://www.w3schools.com/js/js_loop_for.asp"},
+
+    {subject: "Javascript (Basics)", front: "Global Scope", back: "Variables that can be seen and used anywhere in the program, typically with var or const", source: "https://www.w3schools.com/js/js_scope.asp"},
+
+    {subject: "Javascript (Basics)", front: "Local Scope", back: "Also know as lexical or block scope where ariables in local scope can only be used within the block/function/loop that it is assigned, typically with let", source: "https://www.w3schools.com/js/js_scope.asp"},
+
+    {subject: "Javascript (Basics)", front: "Function", back: "A block of code designed to perform a task and always are assigned to a variable with a name, a set of parantheses that take arguments, instructions and a return statement", source: "https://www.w3schools.com/js/js_functions.asp"},
+
+    {subject: "Javascript (Basics)", front: "Arguments", back: "Pieces of outside information that is used when a function runs", source: "https://www.w3schools.com/js/js_functions.asp"},
+
+    {subject: "Javascript (Basics)", front: "ES6 syntax", back: "The primary way to write a function in Javascript, with a fat arrow and curly braces", source: "https://www.w3schools.com/js/js_es6.asp"},
+
+    {subject: "Javascript (Basics)", front: "Pseudo Code", back: "All the logical steps of your code written out using // and is intended for human reading", source: "https://www.vikingcodeschool.com/software-engineering-basics/what-is-pseudo-coding"},
+
+    {subject: "Javascript (Basics)", front: "Higher-Order Functions", back: "A higher-order function is simply a function that either takes in another function as an argument or returns another function", source: "https://www.freecodecamp.org/news/a-quick-intro-to-higher-order-functions-in-javascript-1a014f89c6b/"},
+
 
 # Javascript (Adv.)
     {front: "Boolean prototype Constructor",
@@ -126,45 +138,66 @@ flashcards = [
 
 # Javascript Methods Flashcard list
     {front: "map()",
-    back: "Creates a new array with the result of calling a function for each array element.",
+    back: "The .map() function iterates through an array and returns a new array of the same length",
     source: "https://www.w3schools.com/jsref/jsref_map.asp",
     subject: "Javascript Methods"},
     {front: "filter()",
-    back: "Creates a new array with every element in an array that pass a test.",
+    back: "The .filter() function loops through an array and returns a new array with only the values that are truthy or the values that satisfy your stated condition and is a subset of the given array",
     subject: "Javascript Methods",
     source: "https://www.w3schools.com/jsref/jsref_filter.asp"},
+    {front: "reduce()",
+    back: "The .reduce() function loops through an array and returns a single value",
+    subject: "Javascript Methods",
+    source: "https://www.w3schools.com/jsref/jsref_reduce.asp"},
     {front: "concat()",
-    back: "Joins two or more arrays, and returns a copy of the joined arrays.",
+    back: "Joins two or more arrays, and returns a copy of the joined arrays",
     source: "https://www.w3schools.com/jsref/jsref_concat_array.asp",
     subject: "Javascript Methods"},
     {front: "includes()",
-    back: "Check if an array contains the specified element.",
+    back: "Check if an array contains the specified element",
     source: "https://www.w3schools.com/jsref/jsref_includes_array.asp",
     subject: "Javascript Methods"},
     {front: "join()",
-    back: "	Joins all elements of an array into a string.",
+    back: "	Joins all elements of an array into a string",
     source: "https://www.w3schools.com/jsref/jsref_join.asp",
     subject: "Javascript Methods"},
     {front: "pop()",
-    back: "	Removes the last element of an array, and returns that element.",
+    back: "	Removes the last element of an array, and returns that element",
     source: "https://www.w3schools.com/jsref/jsref_pop.asp",
     subject: "Javascript Methods"},
     {front: "push()",
-    back: "Adds new elements to the end of an array, and returns the new length.",
+    back: "Adds new elements to the end of an array, and returns the new length",
     source: "https://www.w3schools.com/jsref/jsref_push.asp",
     subject: "Javascript Methods"},
     {front: "shift()",
-    back: "Removes the first element of an array, and returns that element.",
+    back: "Removes the first element of an array, and returns that element",
     source: "https://www.w3schools.com/jsref/jsref_shift.asp",
     subject: "Javascript Methods"},
     {front: "slice()",
-    back: "Selects a part of an array, and returns the new array.",
+    back: "Selects a part of an array, and returns the new array",
     source: "https://www.w3schools.com/jsref/jsref_slice_array.asp",
     subject: "Javascript Methods"},
     {front: "sort()",
-    back: "Sorts the elements of an array.",
+    back: "Sorts the elements of an array",
     source: "https://www.w3schools.com/jsref/jsref_sort.asp",
     subject: "Javascript Methods"},
+    {front: "indexOf()",
+    back: "Searches the array for the specified item, and returns its position or -1 if it is not found",
+    source: "https://www.w3schools.com/jsref/jsref_indexof_array.asp",
+    subject: "Javascript Methods"},
+    {front: "findIndex()",
+    back: "Returns the index of the first element in an array or -1 if it is not found",
+    source: "https://www.w3schools.com/jsref/jsref_findindex.asp",
+    subject: "Javascript Methods"},
+    {front: "reverse()",
+    back: "Reverses the order of elements in an array",
+    source: "https://www.w3schools.com/jsref/jsref_reverse.asp",
+    subject: "Javascript Methods"},
+    {front: "lastIndexOf()",
+    back: "Searches the array for the specified item starting at the end unless specified, and returns its position or -1 if it is not found",
+    source: "https://www.w3schools.com/jsref/jsref_lastindexof_array.asp",
+    subject: "Javascript Methods"},
+
 
 # Ruby (Basics)
     {front: "def",
