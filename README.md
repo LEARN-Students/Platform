@@ -15,7 +15,6 @@ The LEARN student platform is an open-source collection of modules & resources b
 
 The open source nature of the project is to encourage students & alumni to build out tools and provide resources to support not only their own learning, but of their peers. This project is for LEARN students & built by LEARN students.
 
-The LEARN student platform is still in it's infancy and we encourage you to add to the project by contributing code. To learn more about contributing please read our [guidelines](CONTRIBUTING.md)
-).
+The LEARN student platform is still in it's infancy and we encourage you to add to the project by contributing code. To learn more about contributing please read our [guidelines](CONTRIBUTING.md).
 
 This project is made in conjunction with the [LEARN academy](https://www.learnacademy.org/) and is built utilizing React-on-Rails and other modern web-development technologies.
