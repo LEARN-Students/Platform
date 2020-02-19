@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { Button, Row, Col, Container, Media, Image } from "react-bootstrap"
 import { Link } from "react-router-dom"
+import Logo from 'images/learn_students_logo.png'
 import LearnLogo from 'images/learnLogo.png'
 
 class Home extends Component {
@@ -31,7 +32,7 @@ class Home extends Component {
                     <Col xs={4}>
                         <Image
                         style={{width:"inherit"}}
-                        src={LearnLogo}
+                        src={Logo}
                         alt="Learn Academy Logo"
                         />
                     </Col>
