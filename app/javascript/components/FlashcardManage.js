@@ -79,7 +79,7 @@ class FlashcardManage extends Component {
         .then((response) => {
             if(response.ok){
                 this.getMyList()
-                this.grabFlashcard(myList[1])
+                this.newFlashcard()
             }
         })
         .catch(error => console.log(error))
@@ -121,7 +121,7 @@ class FlashcardManage extends Component {
                   <Card.Body>
                     <Card.Text>
                     <Form>
-                    { myList.map((flashcard,i) => {
+                    { myList && myList.map((flashcard,i) => {
                         return(
                             <Form.Group as={Row} key={flashcard.front+i}>
                             <Col xs={9}><Form.Label>{flashcard.front.substr(0,29)}</Form.Label></Col>
@@ -176,8 +176,8 @@ class FlashcardManage extends Component {
                         <Form.Group controlId="Front">
                         <Form.Label>Flashcard Frontside</Form.Label>
                             <Form.Control
-                                type="text"
                                 name="front"
+                                type="text"
                                 onChange={this.handleChange} />
                         </Form.Group>
                         <Form.Group controlId="Back">
@@ -201,7 +201,7 @@ class FlashcardManage extends Component {
                                 <Form.Control
                                     type="text"
                                     name="front"
-                                    value={front}
+                                    value={this.state.form.front}
                                     onChange={this.handleChange} />
                             </Form.Group>
                             <Form.Group controlId="Back">
@@ -209,7 +209,7 @@ class FlashcardManage extends Component {
                                 <Form.Control
                                 name="back"
                                 type="text"
-                                value={back}
+                                value={this.state.form.back}
                                 onChange={this.handleChange}/>
                             </Form.Group>
                             <Form.Group controlId="Source">
@@ -217,7 +217,7 @@ class FlashcardManage extends Component {
                                 <Form.Control
                                 name="source"
                                 type="url"
-                                value={source}
+                                value={this.state.form.source}
                                 onChange={this.handleChange}/>
                             </Form.Group>
                         </Form>}
