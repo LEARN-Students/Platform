@@ -213,7 +213,7 @@ class Flashcard extends Component {
                             <Container>
                             <Card style={{ width: "100%", height:"40vH"}} onClick={ this.flipCard}>
                             <Card.Body style={{display:"flex", justifyContent:"space-between", flexDirection:"column"}}>
-                            <Card.Text style={{fontSize:"2rem"}}>{flashcards[0].back}</Card.Text>
+                            <Card.Text style={{fontSize:"2rem", overflow:"scroll"}}>{flashcards[0].back}</Card.Text>
                             <Row><Col>
                                 <Button variant="primary" onClick={() => {window.open(flashcards[0].source)}}>Source</Button>
                                 </Col>

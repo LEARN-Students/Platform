@@ -9,37 +9,12 @@ If so, how? (How can I install it? What are the code snippets that work out-of-b
 If I like it, how can I join? (What license is this project under? What are the rules for contributing?)
  -->
 
-<project_name> is a <utility/tool/feature> that allows <insert_target_audience> to do <action/task_it_does>.
-
 # Learn Student Platform
 
+The LEARN student platform is an open-source collection of modules & resources built to empower students transitioning into a career in programming. In particular, the LEARN student platform aspires to be a comprehensive resource for learning React-on-Rails development and related topics in conjunction with the LEARN academy curriculum.
 
-The LEARN student platform is an open-source collection of modules & resources built to empower students transition into professional programming. In particular we aim at being a comprehensive resource for learning React-on-Rails development and related topics in conjunction with the LEARN academy curriculum. This project is for LEARN students & built by LEARN students.
+The open source nature of the project is to encourage students & alumni to build out tools and provide resources to support not only their own learning, but of their peers. This project is for LEARN students & built by LEARN students.
 
+The LEARN student platform is still in it's infancy and we encourage you to add to the project by contributing code. To learn more about contributing please read our [guidelines](CONTRIBUTING.md).
 
-https://www.learnacademy.org/
-
-
-The project is built utilizing React-on-Rails and other modern web-development technologies.
-
-How to get started:
-
-To contribute to the LEARN Student Platform, follow these steps:
-
-#LETS MAKE A SLACK CHANNEL!!!
-https://learnacademy.slack.com/
-
-1. Fork this repository
-2. Create a branch: git checkout -b <branch name>.
-    (we recommend naming the branch according to the feature/ ticket you will be working on)
-3. Make your changes and commit them:
-
-
-Thanks to the following people who have committed to this project:
-@
-@
-@
-@ Emoji Lines of Code?
-
-
-MIT License
+This project is made in conjunction with the [LEARN academy](https://www.learnacademy.org/) and is built utilizing React-on-Rails and other modern web-development technologies.

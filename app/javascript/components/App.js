@@ -6,7 +6,6 @@ import Home from "./Home"
 import About from "./About"
 import Flashcard from "./Flashcard"
 import FlashcardManage from "./FlashcardManage"
-import "stylesheets/bootstrap.min.css";
 import Logo from 'images/learn_students_logo.png'
 
 // import ReactCardFlip from 'react-card-flip';
@@ -27,14 +26,15 @@ class App extends React.Component {
 
     return (
       <Router>
-        <Navbar style={{ marginBottom: "4em", fontSize:"1.25rem"}} bg="light" expand="lg" >
+        <Navbar style={{ marginBottom: "3em", fontSize:"1.25rem"}} bg="light" expand="lg" >
           <Navbar.Brand href="/"><Image
           style={{ height: "4em" }}
           src={Logo}
           alt="Learn Students Logo"
           /></Navbar.Brand>
               <Nav.Link href="/">Home</Nav.Link>
-              <Nav.Link href="/flashcards">Flashcards</Nav.Link>
+              {logged_in && <Nav.Link href="/flashcards">Flashcards</Nav.Link>}
+              {!logged_in && <Nav.Link href="/users/sign_up">Flashcards</Nav.Link>}
               <Nav.Link className="about" href="/about">About</Nav.Link>
               {logged_in && <Nav.Link href={sign_out_route}>Sign Out</Nav.Link>}
               {!logged_in && <Nav.Link href={sign_in_route}>Sign In</Nav.Link>}
