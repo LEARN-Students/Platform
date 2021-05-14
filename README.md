@@ -11,6 +11,8 @@ If I like it, how can I join? (What license is this project under? What are the 
 
 # Learn Student Platform
 
+App available @ https://obscure-reaches-13754.herokuapp.com/flashcards (Please allow a few moments for the server to spin up)
+
 The LEARN student platform is an open-source collection of modules & resources built to empower students transitioning into a career in programming. In particular, the LEARN student platform aspires to be a comprehensive resource for learning React-on-Rails development and related topics in conjunction with the LEARN academy curriculum.
 
 The open source nature of the project is to encourage students & alumni to build out tools and provide resources to support not only their own learning, but of their peers. This project is for LEARN students & built by LEARN students.
